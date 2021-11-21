@@ -3,9 +3,24 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Clase 20000 Wahnish Emma Ines Desafio Complementario 01</title> 
     </head>
     <body>
-        <script src="./js/index.js">       
+        <script>
+            let tareas = prompt("Ingrese la cantidad total de tareas del plan");
+            if (isNaN(tareas) || Number(tareas) <= 0) {
+                alert("Es obligatorio ingresar un numero entero positivo");
+                throw "No se ha ingresado un numero entero positivo";
+            } else {
+                let finalizadas = prompt("Ingrese el numero de tareas finalizadas");
+                if (isNaN(finalizadas) || Number(finalizadas) > Number(tareas)){
+                    alert("La cantidad de tareas finalizadas debe ser un numero entero menor o igual a la cantidad total de tareas");
+                    throw "No se ha ingresado un numero entero menor o igual a la cantidad de total de tareas";
+                } else {
+                    let porcentaje = (100 * Number(finalizadas)) / Number(tareas);
+                    alert("El porcentaje de avance del plan es del " + porcentaje + " %");
+                }
+            }      
         </script>
     </body>
 </html>
