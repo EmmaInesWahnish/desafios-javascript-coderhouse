@@ -21,6 +21,7 @@
                     alert("La cantidad de tareas finalizadas debe ser un numero entero positivo menor o igual a la cantidad total de tareas");
                     throw "No se ha ingresado un numero entero menor o igual a la cantidad total de tareas";
                 } else {
+                    // si la información ingresada es válida se calcula e informa el porcentaje de avance del plan
                     let porcentaje = (100 * Number(finalizadas)) / Number(tareas);
                     alert("El porcentaje de avance del plan es del " + porcentaje + " %");
                 }
