@@ -12,6 +12,6 @@ if (!nombre || nombre == '') {
         alert(nombre + " , el numero ingresado no responde a lo solicitado");
         throw "Se ha ingresado un numero inválido o fuera del rango solicitado";
     } else {
-        alert(nombre + " , muchas gracias por su colaboración, usted ingresó " + elNumero);
+        alert(nombre + " , muchas gracias por su colaboración, usted ingresó el numero " + elNumero);
     }
 }
