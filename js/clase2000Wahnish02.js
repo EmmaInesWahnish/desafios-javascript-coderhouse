@@ -1,7 +1,7 @@
 // Se solicita ingresar un nombre
 let nombre = prompt("Por favor ingrese su Nombre");
 // Se valida la información ingresada
-if (!nombre || nombre == '') {
+if (!nombre || Number(nombre) || nombre == '') {
     alert("Es obligtorio ingresar un nombre no nulo");
     throw "Se ha ingresado información inválida" 
 } else {
