@@ -1,0 +1,234 @@
+  @mixin llamada-explicativa {
+    background-color: #EFEFEF;
+    width:auto;
+    border: none;
+    color:$color-grid1;
+    font-size: map-get($size-font,"mediano");
+  /*  box-shadow: 5px 8px 16px 1px grey;*/
+    padding: 10px 10px;
+    display: block;
+  }
+
+  /*codigo super-grid*/
+  .super-grid {
+    margin:0;
+    border:0;
+    display: grid;
+    width: 100%;
+    gap: 0;
+    align-content: stretch;
+    justify-content:stretch;
+    grid-auto-flow:column;
+    grid-template-rows: auto auto auto auto;
+    grid-template-columns:auto;
+    padding: 0;
+
+    &__item1, &__item2 {
+      width:100%;
+      height:auto;
+      border:0;
+    }
+    &__item3 {
+      width: 100%;
+      height:auto;
+      border:5px;
+      margin:5px;
+      padding:15px;
+      font-size: 1.5em;
+      align-self: center;
+      text-align: justify;
+      font-style: 900;
+      color: $color-default;  
+      background-color: $background-default;
+      animation-name: reveal;
+      animation-duration: 8s; 
+    }
+    &__item4{
+      width: 100%;
+      height:auto;
+      border:0;
+      margin:0;
+      background-color: $background-default;
+    }
+  }  
+  /*finaliza codigo super-grid*/
+
+  /*para animacion pie de pagina */
+  .grid-effect {
+    width:100%;
+    display:grid;
+    grid-auto-flow: column;
+
+    &__item1 {
+      width:50%;
+    }
+
+    &__item2 {
+      align-self: center;
+      justify-self: right;
+      width:auto;
+      animation-name: jump;
+      animation-duration: 3s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: 1;  
+    }
+  }
+  /* fin animacion pie de pagina*/
+
+  /*grid de la sección main de la página principal*/
+  .grid1-container {
+    width: 100%;
+    margin:5px;
+    gap:5px;
+    display: grid;
+    object-position: bottom;
+    align-items:center;
+    align-content: space-between;
+    border-style: none;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows:auto;
+    background-color: $background-default;
+    padding: 5px;
+    font-size:1.2vw;
+    &__item4{
+      border-style: none;
+      justify-self: center; 
+      box-shadow: 0 10px 10px 5px grey;
+      background-color:$color-fila-titulos-tabla;
+      margin:5px;
+      padding:0;
+      p {
+        text-align: center;
+        color:#EFEFEF;
+        font-size: map-get($size-font,"normal");
+      }
+    }
+    &__item__necesito {
+      @include llamada-explicativa();
+    }
+    &__item__circle {
+      @include llamada-explicativa();
+      align-self: center;
+    }
+    &__item__ofrezco {
+      @include llamada-explicativa();      
+    }
+    &__item1__necesito__texto {
+      position: relative;
+      align-self: center;
+      padding:0;
+      margin:0;
+      width:auto;
+      font-size: 2vw;
+      text-align: center;
+      font-style: 600;
+      color:red;
+    }
+    
+    &__item1__necesito__texto:hover {
+      transform:scale(1.5,1.5)
+    }
+
+    &__item3__ofrezco__texto {
+      position: relative;
+      align-self: center;
+      padding:0;
+      margin:0;
+      width:auto;
+      font-size: 2vw;
+      text-align: center;
+      font-style: 600;
+      color:$color-grid1;
+      
+    }
+    
+    &__item4__texto {
+      position: relative;
+      align-self: center;
+      padding:0;
+      margin:0;
+      width:auto;
+      font-size: 2vw;
+      text-align: center;
+      font-style: 600;
+      color:#24B8CE;
+    }
+    
+    &__item3__ofrezco__texto:hover {
+      transform:scale(1.5,1.5)
+    }
+    
+    &__item4 {
+      display:block;
+    }
+  }  
+  /*fin grid seccion main de página principal*/
+
+  /* codigo grid paginas no principales*/
+  .item1 {
+    grid-area: head;
+  }
+  
+  .item2 {
+    grid-area: main;
+  }
+  
+  .item3 {
+    grid-area: footer;
+  }
+  
+  .grid-stat {
+    width:100%;
+    display:grid;
+    width: 100%;
+    align-content:space-between;
+    grid-auto-flow:row;
+    grid-template-areas: 
+      'head'
+      'main'
+      'footer';
+  }
+  /*fin codigo grid paginas no principales*/
+
+  /*grid-graficos*/
+  .grid-graficos {
+    display:grid;
+    width:100%;
+    display:grid;
+    justify-content: space-evenly;
+    align-content:space-around;
+    grid-auto-flow: row;
+    grid-template-areas: 
+      'uno  dos'
+      'tres cuatro';
+      .grid-graficos__image1 {
+        width:auto;
+        grid-area: uno;
+      }
+      &__image2 {
+        width: auto;
+        grid-area: dos;
+      }
+      
+      &__image3 {
+        width: auto;
+        grid-area: tres;
+      }
+      
+      &__image4 {
+        width: auto;
+        grid-area: cuatro;
+      }        
+  }
+  /* fin grid graficos*/
+  .flex-container {
+    display: flex;
+    flex-flow: row nowrap;
+    &__item2 {
+      margin:10px;
+      text-align: justify;
+      color:$color-grid1;
+      font-size: map-get($size-font,"mediano");
+    }
+  }
+  /* flex container*/

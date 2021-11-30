@@ -1,0 +1,70 @@
+@import "colores-tipografia";
+$size-font:("maschico":0.5em, "chico":0.8em, "mediano":1em, "normal":1.5em, "grande":1.8em, "biengrande":2em);
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+  }
+
+  a:hover {
+    color: $link-hover;
+  } 
+
+  /*imagenes (para que se comporten bien)*/
+  img {
+    max-width: 100%;
+    height:auto;
+  }
+    
+  /*titulos*/
+  h1 {
+    font-family: $tipografia;
+    color:  $color-titulos-h1-h2;
+    font-size:map-get($size-font,"biengrande");
+    text-shadow: 2px 2px 5px grey;
+  }
+  
+  /*titulos h2 algo mas pequeños*/
+  h2 {
+    font-family: $tipografia;
+    color: $color-titulos-h1-h2;
+    font-size: map-get($size-font,"grande");
+    font-weight: 600;
+  }
+  
+  /*Subtitulo explicaciones*/
+  h4 {
+    font-family: $tipografia;
+    color: $color-titulo-h4;
+  }
+  body {
+    font-family: $tipografia;
+    color: $color-default;
+    background-color: $background-default;
+    font-size: map-get($size-font,"normal");
+  }
+
+  /*botones*/
+  button, .botones-basico {
+    color: $color-default;
+    border-radius: 8px;
+    background-color: #91DBE6;
+    text-transform: uppercase;
+    margin:5px;
+    padding:5px;
+    font-weight: bold;
+    font-size: map-get($size-font,"chico"); 
+  }
+
+  .form__botones__reset {
+    @extend .botones-basico;
+    color: darkslategrey;
+    background-color: #EEEEEE;
+  } 
+  
+  .form__botones__submit {
+    @extend .botones-basico;
+    color: #2D85E5;
+    background-color: #EEEEEE;
+  }
+  /*fin botones*/

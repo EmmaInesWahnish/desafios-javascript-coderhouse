@@ -1,0 +1,304 @@
+/*Inicialmente se elige un margen default para todo y un paddimg default*/
+@import "colores-tipografia";
+@import "basico";
+@import "_layout";
+@import "_forms";
+
+  /*características del pie de pagina*/
+  footer {
+    display:block;
+    font-size:map-get($size-font,"mediano");
+    margin:0;
+    padding:1em;
+    border: $color-default;
+    font-family: $tipografia;
+    color:  lightslategray;
+    background-image: $gradiente-azul;  
+  }
+  /*fin pie de pagina*/
+
+  /*margenes filtros*/
+  .container-filtros {
+    margin:10px;
+    padding: 15px;
+  }
+    
+  /*navegacion*/
+  .navbar {
+    margin:0;
+    border:0;
+    ul {
+      background-color: $color-default;
+      margin:0;
+      border:0;
+      list-style: none; 
+      padding: 0;
+    }
+    a {
+      display: block;
+      padding: 5px;
+      text-align: center;
+      justify-items: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-family: $tipografia;
+      font-size:  map-get($size-font,"chico");
+    }    
+  }
+  /*Fin navegacion*/
+    
+  /*Codigo Header de la pagina principal*/
+  .header-line-1__title  {
+    justify-self: left;
+    align-self: center;
+  }
+  /*fin codigo header de pagina principal*/
+    
+  /*caracteristicas de la página acerca de nosotros*/
+  .about-container__item {
+    width: auto;
+    height: auto;
+    justify-self: center;
+    &__info {
+      /* forma de centrar el texto visto en el after class del lunes 13-09 */
+       position: relative;
+       width:auto;
+       transform: translate(-50%, -50%);
+       top: 50%;
+       left: 50%;
+       padding:10px;
+       margin:5px;
+       border:5px;
+       font-style: 600;
+       font-family: $tipografia;
+       text-align: justify;
+     }   
+  }
+
+  .about {
+    font-size:  map-get($size-font,"chico");
+    color:$color-default;
+    ul, ol{
+      font-size:  map-get($size-font,"mediano");
+      li{
+        display:block;
+      }
+    }
+   }
+  /*finaliza seccion pagina acerca de nosotros*/
+    
+  /* Header Modal Explicativo*/
+  .header-modal {
+    color: $color-titulos-h1-h2;
+    width:100%;
+    height:auto;
+    border:0;
+    background-image: $gradiente-azul;
+  }
+  
+  /* Texto Modal Explicativo*/
+  .texto-modal {
+    color: $color-default;
+    margin:5px;
+    border: 5px;
+    padding:10px;
+  }
+  
+  .modal-content {
+    background-color: transparent;
+    padding:0;
+  }
+  /*Fin Modal Texto explicativo*/
+  
+  /*para listados*/
+  .espacio-listado {
+    margin: auto;
+  }
+  .container__filtros{
+    display:block;
+    margin:1em;
+    gap:2em;
+  }
+  /*fin para listados*/
+  
+  /*características de las tablas*/
+  table {
+      width: auto;
+      font-family: $tipografia; 
+    th {
+      border: 3px;
+      color: $background-default;
+      background-color: $color-fila-titulos-tabla;
+      text-align: center;
+      padding: 8px;
+      font-size: map-get($size-font,"mediano");
+      font-weight: 400;
+    }  
+    td {
+      border: 2px;
+      text-align: left;
+      font-size: map-get($size-font,"mediano");
+      padding: 8px;
+    }
+  }  
+  /*fin caracteristica de las tablas*/
+  
+  .banner-text {
+    background-color: $background-default;
+    color: $color-fondo-tipoa;
+    align-self: center;
+    justify-self: content; 
+    font-size:1.5vw; 
+  }
+  
+  .imgbanner-tipoa {
+    background-color: $color-fondo-tipoa;
+  }
+  
+  .imgbanner-tipob {
+    background-color: $color-fondo-tipob; 
+  }
+
+  /*modal-container class*/
+  .modal-container {
+    border-color: $color-fondo-tipoa;
+    padding:5px;
+    border-style:ridge;
+  }
+  
+  /*userid class*/
+  .container__w400 {
+    font-weight:400;
+    color:$color-default;
+    margin:5px;
+    padding:5px;
+  }
+  
+  /*animación del circulo en sección main de pagina principal*/
+  img#circle {
+    animation-name: iTurn;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+  
+/*  @keyframes iTurn {
+    0%	{transform: rotate(0deg);}
+    10% 	{transform: rotate(36deg);}
+    20%	{transform: rotate(72deg);}
+    30%   {transform: rotate(108deg);}
+    40%	{transform: rotate(144deg);}
+    50%   {transform: rotate(180deg);}
+    60%	{transform: rotate(216deg);}
+    70%   {transform: rotate(252deg);}
+    80%	{transform: rotate(288deg);}
+    90%   {transform: rotate(334deg);}
+    100%	{transform: rotate(360deg);}
+  }
+*/
+
+  @keyframes iTurn {
+    @for $i from 0 through 10 {
+      $degree: $i*36;
+      $percent: $i*10;
+      #{$percent}% {transform: rotate(#{$degree}deg);}
+    }
+  }
+  
+  /* animación texto keyframes*/
+  @keyframes reveal {
+    @for $i from 0 through 10 {
+      $opacidad: ($i*10)/100;
+      $percent: $i*10;
+      #{$percent}% {opacity:#{$opacidad};}
+    }
+  }
+  
+  /* animacion ranita*/
+  @keyframes jump {
+    10% {justify-self:left;}
+    20% {transform: matrix(1, -0.2, 0, 1, 1, 1);}
+    40% {transform: matrix(1, 0, -0.2, 1, 1, 1);}
+    60% {transform: matrix(1, 0, 0, 1, 1, 1);} 
+    80% {transform: matrix(1, 0, -0.2, 1, 1, 1);}  
+    100% {transform: matrix(1, 0, 0, 1, 1, 1);}
+  }
+  
+  /*media queries*/
+  @media only screen and (max-width:500px) {
+    .banner-text {
+      font-size:1rem; 
+    }
+  
+    .grid1-container {
+      grid-template-columns: auto auto auto;
+      grid-template-rows:auto auto;  
+      &__item4 {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        font-size: 1rem;
+      }
+      &__item__necesito {
+        font-size: 1rem;
+      }
+      &__item__circle {
+        font-size: 1rem;
+        align-self: center;
+      }
+      &__item__ofrezco {
+        font-size: 1rem;
+      } 
+      &__item1__necesito__texto {
+        font-size: 1rem;
+      }
+      &__item3__ofrezco__texto {
+        font-size: 1rem;
+      }
+    }
+  
+    .grid-effect__item2 {
+      display:none;
+    }
+  
+    .about-container{
+      grid-template-columns: auto;
+      grid-template-rows: auto auto;
+    }
+  }
+  
+  @media only screen and (min-width: 501px) and (max-width: 960px) {
+    .banner-text {
+      font-size:1rem; 
+    }
+  
+    .grid1-container {
+      &__item4 {
+        font-size: 0.8rem;
+      }
+      &__item__necesito {
+        font-size: 1rem;
+      }
+      &__item__circle {
+        font-size: 1rem;
+        align-self: center;
+      }
+      &__item__ofrezco {
+        font-size: 1rem;
+      } 
+      &__item1__necesito__texto {
+        font-size: 1rem;
+      }
+      &__item3__ofrezco__texto {
+        font-size: 1rem;
+      }
+    }
+
+    .grid1-container__item4 .grid-effect__item2 {
+      display:block;
+    }  
+  }
+  
+  @media only screen and (mix-width: 961px) {
+    .grid1-container__item4 .grid-effect__item2 {
+      display:block;
+    }  
+  }
