@@ -21,9 +21,10 @@
     <div class="grid-stat">
         <header>
             <div class="m10 btn-group btn-group-sm" style="width: 100%;">
-                <button type="button" class="btn btn-info" onclick="mostrar()">Desplegar Plan</button>
-                <button type="button" class="btn btn-info">Modificar Estado</button>
-                <button type="button" class="btn btn-info">Calcular Avance</button>
+                <button type="button" class="btn btn-info" onclick="showPlan()">Desplegar plan</button>
+                <button type="button" class="btn btn-info" onclick="asignTask()">Asignar responsable</button>
+                <button type="button" class="btn btn-info" onclick="changeTaskStatus()">Finalizar Tarea</button>
+                <button type="button" class="btn btn-info" onclick="percentComplete()">Calcular Avance</button>
             </div>
         </header>
 
@@ -38,97 +39,101 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <h2>Porcentaje de Avance</h2>
+                    <P id="avance"></P>
+                </div>
                 <div class="table-responsive">
                     <table class="showes table table-bordered">
                         <tr>
-                            <th>Identificación</th>
-                            <th>Descripción</th>
+                            <th>Identificacion</th>
+                            <th>Descripcion</th>
                             <th>Responsable</th>
-                            <th>Estado Finalizada (Si/No)</th>
+                            <th>Estado (Finalizada:Si/No)</th>
                         </tr>
                         <tr>
                             <td>
-                               <p>T000</p>
+                               <p id="F00C00"></p>
                             </td>
                             <td>
-                                <p>Relevamiento de los requerimientos de la aplicación</p>
+                                <p id="F00C01"></p>
                             </td>
                             <td>
                                 <p id="F00C02"></p>
                             </td>
                             <td>
-                                <p></p>
+                                <p id="F00C03"></p>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <p>T001</p>
-                            </td>
-                            <td>
-                                <p>Diseño de funcionalidad</p>
-                            </td>
-                            <td>
-                                <p id="F01C02"></p>
-                            </td>
-                            <td>
-                                <p></p>
-                            </td>
+                                <p id="F01C00"></p>
+                             </td>
+                             <td>
+                                 <p id="F01C01"></p>
+                             </td>
+                             <td>
+                                 <p id="F01C02"></p>
+                             </td>
+                             <td>
+                                 <p id="F01C03"></p>
+                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <p>T002</p>
-                            </td>
-                            <td>
-                                <p>Validación del diseño</p>
-                            </td>
-                            <td>
+                               <p id="F02C00"></p>
+                             </td>
+                             <td>
+                               <p id="F02C01"></p>
+                             </td>
+                             <td>
                                 <p id="F02C02"></p>
-                            </td>
-                            <td>
-                                <p></p>
-                            </td>
+                             </td>
+                             <td>
+                                <p id="F02C03"></p>
+                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <p>T003</p>
-                            </td>
-                            <td>
-                                <p>Desarrollo de la aplicación</p>
-                            </td>
-                            <td>
+                               <p id="F03C00"></p>
+                             </td>
+                             <td>
+                               <p id="F03C01"></p>
+                             </td>
+                             <td>
                                 <p id="F03C02"></p>
-                            </td>
-                            <td>
-                                <p></p>
-                            </td>
+                             </td>
+                             <td>
+                                <p id="F03C03"></p>
+                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <p>T004</p>
-                            </td>
-                            <td>
-                                <p>Testing de la Aplicación</p>
-                            </td>
-                            <td>
+                                <p id="F04C00"></p>
+                             </td>
+                             <td>
+                                <p id="F04C01"></p>
+                             </td>
+                             <td>
                                 <p id="F04C02"></p>
-                            </td>
-                            <td>
-                                <p></p>
-                            </td>
+                             </td>
+                             <td>
+                                <p id="F04C03"></p>
+                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <p>T005</p>
-                            </td>
-                            <td>
-                                <p>Puesta en producción</p>
-                            </td>
-                            <td>
+                                <p id="F05C00"></p>
+                             </td>
+                             <td>
+                                <p id="F05C01"></p>
+                             </td>
+                             <td>
                                 <p id="F05C02"></p>
-                            </td>
-                            <td>
-                                <p></p>
-                            </td>
+                             </td>
+                             <td>
+                                <p id="F05C03"></p>
+                             </td>
                         </tr>                        
                     </table>
 
@@ -149,17 +154,10 @@
                 integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
                 crossorigin="anonymous"></script>
 
-            <script>
-                function mostrar(){
-                    let responsable = ["Analista Funcional", "Diseñadores", "Gerencia", "Desarrolladores", "Testers", "Implementadores" ];
-                    for (var i=0; i < responsable.length; i++) {
-                        let theId = "F0"+i+"C02";
-                        console.log(theId, responsable[i])
-                        document.getElementById(theId).innerHTML = responsable[i];
-                    }
-                }
-            </script>
-
+            <script src="./js/clase20000Wahnish03.js"></script>    
+            <script src="./js/clase20000Wahnish04.js"></script>    
+            <script src="./js/clase20000Wahnish05.js"></script>
+            <script src="./js/clase20000Wahnish06.js"></script>   
 </body>
 
 </html>

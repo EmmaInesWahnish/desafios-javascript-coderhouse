@@ -1,3 +1,4 @@
+function percentComplete() {
 let tareas = prompt("Ingrese la cantidad total de tareas del plan");
 //Se valida la información ingresada
 if (isNaN(tareas) || Number(tareas) <= 0) {
@@ -16,3 +17,4 @@ if (isNaN(tareas) || Number(tareas) <= 0) {
         alert("El porcentaje de avance del plan es del " + porcentaje + " %");
     }
 }      
+}
