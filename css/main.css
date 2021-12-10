@@ -16,14 +16,14 @@ img {
 /*titulos*/
 h1 {
   font-family: trebuchet;
-  color: #24B8CE;
+  color: #2D85E5;
   font-size: 2em;
   text-shadow: 2px 2px 5px grey; }
 
 /*titulos h2 algo mas pequeños*/
 h2 {
   font-family: trebuchet;
-  color: #24B8CE;
+  color: #2D85E5;
   font-size: 1.8em;
   font-weight: 600; }
 
@@ -133,7 +133,7 @@ button, .botones-basico, .form__botones__reset, .form__botones__submit {
     border-style: none;
     justify-self: center;
     box-shadow: 0 10px 10px 5px grey;
-    background-color: #24B8CE;
+    background-color: #2D85E5;
     margin: 5px;
     padding: 0; }
     .grid1-container__item4 p {
@@ -325,7 +325,7 @@ footer {
   border: #12355B;
   font-family: trebuchet;
   color: lightslategray;
-  background-image: linear-gradient(to right, rgba(36, 184, 206, 0), #24b8ce); }
+  background-image: linear-gradient(to right, rgba(45, 133, 229, 0), #2d85e5); }
 
 /*fin pie de pagina*/
 /*margenes filtros*/
@@ -390,11 +390,11 @@ footer {
 /*finaliza seccion pagina acerca de nosotros*/
 /* Header Modal Explicativo*/
 .header-modal {
-  color: #24B8CE;
+  color: #2D85E5;
   width: 100%;
   height: auto;
   border: 0;
-  background-image: linear-gradient(to right, rgba(36, 184, 206, 0), #24b8ce); }
+  background-image: linear-gradient(to right, rgba(45, 133, 229, 0), #2d85e5); }
 
 /* Texto Modal Explicativo*/
 .texto-modal {
@@ -425,7 +425,7 @@ table {
   table th {
     border: 3px;
     color: #EFEFEF;
-    background-color: #24B8CE;
+    background-color: #2D85E5;
     text-align: center;
     padding: 8px;
     font-size: 1em;

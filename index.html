@@ -20,164 +20,265 @@
 <body>
     <div class="grid-stat">
         <header>
-            <div class="m10 btn-group btn-group-sm" style="width: 100%;">
-                <button type="button" class="btn btn-info" onclick="showPlan()">Desplegar plan</button>
-                <button type="button" class="btn btn-info" onclick="modifyPlan()">Modificar plan</button>
-                <button type="button" class="btn btn-info" onclick="changeTaskStatus()">Finalizar Tarea</button>
-                <button type="button" class="btn btn-info" onclick="percentComplete()">Calcular Avance</button>
-            </div>
+            <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+                <!-- Brand -->
+                <a class="navbar-brand" href="javascript:void(0);"><i class="fas fa-tasks"></i> Control</a>
+                <ul class="navbar-nav">
+
+                    <!-- Dropdown -->
+                    <li class="nav-item dropdown bg-primary">
+                        <a class="nav-link dropdown-toggle bg-primary" href="javascript:void(0);" id="navbardrop"
+                            data-toggle="dropdown">
+                            Colaboradores
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="javascript:void(0);" onclick="newCoworker()">Alta
+                                de Colaboradores</a>
+                            <a class="dropdown-item" href="javascript:void(0);" onclick="eliminarColaborador()">Baja
+                                de Colaboradores</a>
+                            <a class="dropdown-item" href="javascript:void(0);"
+                                onclick="modificarColaborador()">Modificacion de colaborador</a>
+                            <a class="dropdown-item" href="javascript:void(0);" onclick="listCoworkers()">Listado de
+                                Colaboradores</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle bg-primary" href="javascript:void(0);" id="navbardrop"
+                            data-toggle="dropdown">
+                            Plan
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="javascript:void(0);" onclick="agregarTarea()">Nueva Tarea</a>
+                            <a class="dropdown-item" href="javascript:void(0);" onclick="modifyPlan()">Modificacion de
+                                Tarea</a>
+                            <a class="dropdown-item" href="javascript:void(0);"
+                                onclick="changeTaskStatus()">Finalizacion de Tarea</a>
+                            <a class="dropdown-item" href="javascript:void(0);" onclick="eliminarTarea()">Eliminacion de
+                                Tarea</a>
+                            <a class="dropdown-item" href="javascript:void(0);" onclick="showPlan()">Despliegue de
+                                Plan</a>
+                        </div>
+                    </li>
+                    <li class="nav-item bg-primary">
+                        <a class="nav-link" href="javascript:void(0);" onclick="percentComplete()">Calculo de Avance</a>
+                    </li>
+                    <li class="nav-item bg-primary">
+                        <a class="nav-link" href="javascript:void(0);" onclick="calculateCost()">Calculo de Costo</a>
+                    </li>
+                    <li class="nav-item bg-primary">
+                        <a class="nav-link" href="javascript:void(0);" onclick="desplegarPresupuesto()">Listado de
+                            Presupuesto</a>
+                    </li>
+                </ul>
+            </nav>
         </header>
 
-        <div class="about item2">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="about-container__item__info">
-                            <h1 class="showes">Tareas del Proyecto</h1>
-                            <p class="showes">
-                            </p>
+        <div class="about-container__item__info">
+            <h1 class="showes">Plan Global de Proyecto</h1>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Porcentaje de Avance</h2>
+                    <p>El porcentaje de avance se calcula teniendo en cuente la cantidad de dias demandados por la
+                        tarea
+                    </p>
+                    <P id="avance"></P>
+                </div>
+                <div class="col-md-6">
+                    <h2>Costo Total Estimado</h2>
+                    <p>El costo del proyecto esta basado en los dias de trabajo, el valor hora del colaborador y la
+                        cantidad de horas de trabajo diarias
+                    </p>
+                    <P id="costo"></P>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="showes table table-bordered">
+                <tr>
+                    <th>Identificacion</th>
+                    <th>Descripcion</th>
+                    <th> Id de Responsable</th>
+                    <th>Estado (Finalizada:Si/No)</th>
+                    <th>Dias de trabajo</th>
+                </tr>
+                <tr>
+                    <td>
+                        <p id="F00C00"></p>
+                    </td>
+                    <td>
+                        <p id="F00C01"></p>
+                    </td>
+                    <td>
+                        <p id="F00C02"></p>
+                    </td>
+                    <td>
+                        <p id="F00C03"></p>
+                    </td>
+                    <td>
+                        <p id="F00C04"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p id="F01C00"></p>
+                    </td>
+                    <td>
+                        <p id="F01C01"></p>
+                    </td>
+                    <td>
+                        <p id="F01C02"></p>
+                    </td>
+                    <td>
+                        <p id="F01C03"></p>
+                    </td>
+                    <td>
+                        <p id="F01C04"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p id="F02C00"></p>
+                    </td>
+                    <td>
+                        <p id="F02C01"></p>
+                    </td>
+                    <td>
+                        <p id="F02C02"></p>
+                    </td>
+                    <td>
+                        <p id="F02C03"></p>
+                    </td>
+                    <td>
+                        <p id="F02C04"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p id="F03C00"></p>
+                    </td>
+                    <td>
+                        <p id="F03C01"></p>
+                    </td>
+                    <td>
+                        <p id="F03C02"></p>
+                    </td>
+                    <td>
+                        <p id="F03C03"></p>
+                    </td>
+                    <td>
+                        <p id="F03C04"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p id="F04C00"></p>
+                    </td>
+                    <td>
+                        <p id="F04C01"></p>
+                    </td>
+                    <td>
+                        <p id="F04C02"></p>
+                    </td>
+                    <td>
+                        <p id="F04C03"></p>
+                    </td>
+                    <td>
+                        <p id="F04C04"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p id="F05C00"></p>
+                    </td>
+                    <td>
+                        <p id="F05C01"></p>
+                    </td>
+                    <td>
+                        <p id="F05C02"></p>
+                    </td>
+                    <td>
+                        <p id="F05C03"></p>
+                    </td>
+                    <td>
+                        <p id="F05C04"></p>
+                    </td>
+                </tr>
+            </table>
+            <div id="coworker" class="w3-modal w3-transparent w3-auto w3-text-indigo">
+                <div class="w3-modal-content">
+                    <div class="modal-container">
+                        <span onclick="document.getElementById('coworker').style.display='none'"
+                            class="w3-button w3-display-topright">&times;</span>
+                        <div class=container>
+                            <form class="showes" class="form" action="/" id="formulario-login" method="POST">
+                                <div class="form__item" class="w3-input">
+                                    <label for="surname">Apellido </label>
+                                    <input type="text" id="surname" name="surname" class="form__item__input" >
+                                </div>
+                                <div class="form__item" class="w3-input">
+                                    <label for="firstname">Nombre</label>
+                                    <input type="text" id="firstname" name="firstname" class="form__item__input">
+                                </div>
+                                <div class="form__item" class="w3-input">
+                                    <label for="valorHora">Valor Hora</label>
+                                    <input type="text" id="valorHora" name="valorHora" class="form__item__input">
+                                </div>
+                                <div class="form__item" class="w3-input">
+                                    <label for="horasDiarias">Horas Diarias</label>
+                                    <input type="text" id="horasDiarias" name="horasDiarias" class="form__item__input">
+                                </div>
+                                <div class="form__botones">
+                                    <button type="button" class="btn btn-primary">Grabar</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <h2>Porcentaje de Avance</h2>
-                    <p>El porcentaje de avance se calcula teniendo en cuente la cantidad de dias demandados por la tarea</p>
-                    <P id="avance"></P>
-                </div>
-                <div class="table-responsive">
-                    <table class="showes table table-bordered">
-                        <tr>
-                            <th>Identificacion</th>
-                            <th>Descripcion</th>
-                            <th>Responsable</th>
-                            <th>Estado (Finalizada:Si/No)</th>
-                            <th>Dias de trabajo</th>
-                        </tr>
-                        <tr>
-                            <td>
-                               <p id="F00C00"></p>
-                            </td>
-                            <td>
-                                <p id="F00C01"></p>
-                            </td>
-                            <td>
-                                <p id="F00C02"></p>
-                            </td>
-                            <td>
-                                <p id="F00C03"></p>
-                            </td>
-                            <td>
-                                <p id="F00C04"></p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p id="F01C00"></p>
-                             </td>
-                             <td>
-                                 <p id="F01C01"></p>
-                             </td>
-                             <td>
-                                 <p id="F01C02"></p>
-                             </td>
-                             <td>
-                                 <p id="F01C03"></p>
-                             </td>
-                             <td>
-                                <p id="F01C04"></p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                               <p id="F02C00"></p>
-                             </td>
-                             <td>
-                               <p id="F02C01"></p>
-                             </td>
-                             <td>
-                                <p id="F02C02"></p>
-                             </td>
-                             <td>
-                                <p id="F02C03"></p>
-                             </td>
-                             <td>
-                                <p id="F02C04"></p>
-                             </td>
-                        </tr>
-                        <tr>
-                            <td>
-                               <p id="F03C00"></p>
-                             </td>
-                             <td>
-                               <p id="F03C01"></p>
-                             </td>
-                             <td>
-                                <p id="F03C02"></p>
-                             </td>
-                             <td>
-                                <p id="F03C03"></p>
-                             </td>
-                             <td>
-                                <p id="F03C04"></p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p id="F04C00"></p>
-                             </td>
-                             <td>
-                                <p id="F04C01"></p>
-                             </td>
-                             <td>
-                                <p id="F04C02"></p>
-                             </td>
-                             <td>
-                                <p id="F04C03"></p>
-                             </td>
-                             <td>
-                                <p id="F04C04"></p>
-                             </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p id="F05C00"></p>
-                             </td>
-                             <td>
-                                <p id="F05C01"></p>
-                             </td>
-                             <td>
-                                <p id="F05C02"></p>
-                             </td>
-                             <td>
-                                <p id="F05C03"></p>
-                             </td>
-                             <td>
-                                <p id="F05C04"></p>
-                             </td>
-                        </tr>                        
-                    </table>
-
-                <footer class="item3">
-                    <p class="showes">Autor: Emma Ines Wahnish</p>
-                    <p>Soporte: <a href="mailto:helpdesk@groovinads.com">helpdesk@groovinads.com</a></p>
-                </footer>
             </div>
 
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-                crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-                integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-                crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
-                integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
-                crossorigin="anonymous"></script>
+            <footer class="item3">
+                <p class="showes">Autor: Emma Ines Wahnish</p>
+                <p>Soporte: <a href="mailto:helpdesk@groovinads.com">helpdesk@groovinads.com</a></p>
+            </footer>
+        </div>
 
-            <script src="./js/clase20000Wahnish03.js"></script>    
-            <script src="./js/clase20000Wahnish07.js"></script>    
-            <script src="./js/clase20000Wahnish05.js"></script>
-            <script src="./js/clase20000Wahnish06.js"></script>   
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+            integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+            crossorigin="anonymous"></script>
+
+        <script src="./js/clase20000WahnishClases03.js"></script>
+        <script src="./js/clase20000WahnishClases04.js"></script>
+        <script>
+            function agregarColaborador() {
+                // se prepara para en el futuro usar el modal
+                document.getElementById('coworker').style.display = 'block';
+            }
+
+            function eliminarColaborador() {
+                alert("Aca ira baja a colaborador")
+            }
+            function modificarColaborador() {
+                alert("Aca ira modificacion a colaborador")
+            }
+            function agregarTarea() {
+                alert("Aca ira alta de tareas al plan")
+            }
+            function eliminarTarea() {
+                alert("Aca ira eliminacion de tareas del plan")
+            }
+            function desplegarPresupuesto() {
+                alert("Aca se despliega el plan presupuestado")
+            }
+        </script>
 </body>
 
 </html>
