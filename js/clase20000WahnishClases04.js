@@ -112,7 +112,7 @@ function newCoworker() {
         alert("Es obligtorio ingresar un nombre no nulo");
         auxArray[2] = prompt("Ingrese el Nombre del colaborador");
     }
-    // Se asume que se pacto un valor hora de 17 U$S
+    // Se asume que se pacto un valor hora de 15 U$S
     auxArray[3] = 15;
     // Se asume que se trabajan 6 horas diarias
     auxArray[4] = 6;
