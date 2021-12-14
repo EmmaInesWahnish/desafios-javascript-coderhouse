@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
 
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clase 20000 Wahnish Emma Ines - JavaScript</title>
     <!--W3 modal style-->
@@ -33,9 +34,9 @@
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="javascript:void(0);" onclick="newCoworker()">Alta
-                                de Colaboradores</a>
+                                de Colaborador</a>
                             <a class="dropdown-item" href="javascript:void(0);" onclick="eliminarColaborador()">Baja
-                                de Colaboradores</a>
+                                de Colaborador</a>
                             <a class="dropdown-item" href="javascript:void(0);"
                                 onclick="modificarColaborador()">Modificacion de colaborador</a>
                             <a class="dropdown-item" href="javascript:void(0);" onclick="listCoworkers()">Listado de
@@ -49,14 +50,13 @@
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="javascript:void(0);" onclick="agregarTarea()">Nueva Tarea</a>
-                            <a class="dropdown-item" href="javascript:void(0);" onclick="modifyPlan()">Modificacion de
-                                Tarea</a>
+                            <a class="dropdown-item" href="javascript:void(0);" onclick="modifyPlan()">Modificacion Dias trabajo</a>
+                            <a class="dropdown-item" href="javascript:void(0);"
+                                onclick="modifyCoworker()">Modificacion de Colaborador</a>
                             <a class="dropdown-item" href="javascript:void(0);"
                                 onclick="changeTaskStatus()">Finalizacion de Tarea</a>
                             <a class="dropdown-item" href="javascript:void(0);" onclick="eliminarTarea()">Eliminacion de
                                 Tarea</a>
-                            <a class="dropdown-item" href="javascript:void(0);" onclick="showPlan()">Despliegue de
-                                Plan</a>
                         </div>
                     </li>
                     <li class="nav-item bg-primary">
@@ -95,191 +95,86 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class="showes table table-bordered">
+            <table id="tasks-table" class="showes table table-bordered">
                 <tr>
                     <th>Identificacion</th>
                     <th>Descripcion</th>
-                    <th> Id de Responsable</th>
+                    <th>Id de Responsable</th>
                     <th>Estado (Finalizada:Si/No)</th>
                     <th>Dias de trabajo</th>
                 </tr>
-                <tr>
-                    <td>
-                        <p id="F00C00"></p>
-                    </td>
-                    <td>
-                        <p id="F00C01"></p>
-                    </td>
-                    <td>
-                        <p id="F00C02"></p>
-                    </td>
-                    <td>
-                        <p id="F00C03"></p>
-                    </td>
-                    <td>
-                        <p id="F00C04"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p id="F01C00"></p>
-                    </td>
-                    <td>
-                        <p id="F01C01"></p>
-                    </td>
-                    <td>
-                        <p id="F01C02"></p>
-                    </td>
-                    <td>
-                        <p id="F01C03"></p>
-                    </td>
-                    <td>
-                        <p id="F01C04"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p id="F02C00"></p>
-                    </td>
-                    <td>
-                        <p id="F02C01"></p>
-                    </td>
-                    <td>
-                        <p id="F02C02"></p>
-                    </td>
-                    <td>
-                        <p id="F02C03"></p>
-                    </td>
-                    <td>
-                        <p id="F02C04"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p id="F03C00"></p>
-                    </td>
-                    <td>
-                        <p id="F03C01"></p>
-                    </td>
-                    <td>
-                        <p id="F03C02"></p>
-                    </td>
-                    <td>
-                        <p id="F03C03"></p>
-                    </td>
-                    <td>
-                        <p id="F03C04"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p id="F04C00"></p>
-                    </td>
-                    <td>
-                        <p id="F04C01"></p>
-                    </td>
-                    <td>
-                        <p id="F04C02"></p>
-                    </td>
-                    <td>
-                        <p id="F04C03"></p>
-                    </td>
-                    <td>
-                        <p id="F04C04"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p id="F05C00"></p>
-                    </td>
-                    <td>
-                        <p id="F05C01"></p>
-                    </td>
-                    <td>
-                        <p id="F05C02"></p>
-                    </td>
-                    <td>
-                        <p id="F05C03"></p>
-                    </td>
-                    <td>
-                        <p id="F05C04"></p>
-                    </td>
-                </tr>
             </table>
-            <!--Modal para uso futuro-->
-            <div id="coworker" class="w3-modal w3-transparent w3-auto w3-text-indigo">
-                <div class="w3-modal-content">
-                    <div class="modal-container">
-                        <span onclick="document.getElementById('coworker').style.display='none'"
-                            class="w3-button w3-display-topright">&times;</span>
-                        <div class=container>
-                            <form class="showes" class="form" action="/" id="formulario-login" method="POST">
-                                <div class="form__item" class="w3-input">
-                                    <label for="surname">Apellido </label>
-                                    <input type="text" id="surname" name="surname" class="form__item__input">
-                                </div>
-                                <div class="form__item" class="w3-input">
-                                    <label for="firstname">Nombre</label>
-                                    <input type="text" id="firstname" name="firstname" class="form__item__input">
-                                </div>
-                                <div class="form__item" class="w3-input">
-                                    <label for="valorHora">Valor Hora</label>
-                                    <input type="text" id="valorHora" name="valorHora" class="form__item__input">
-                                </div>
-                                <div class="form__item" class="w3-input">
-                                    <label for="horasDiarias">Horas Diarias</label>
-                                    <input type="text" id="horasDiarias" name="horasDiarias" class="form__item__input">
-                                </div>
-                                <div class="form__botones">
-                                    <button type="button" class="btn btn-primary">Grabar</button>
-                                </div>
-                            </form>
-                        </div>
+        </div>
+        <!--Modal para uso futuro-->
+        <div id="coworker" class="w3-modal w3-transparent w3-auto w3-text-indigo">
+            <div class="w3-modal-content">
+                <div class="modal-container">
+                    <span onclick="document.getElementById('coworker').style.display='none'"
+                        class="w3-button w3-display-topright">&times;</span>
+                    <div class=container>
+                        <form class="showes" class="form" action="/" id="formulario-login" method="POST">
+                            <div class="form__item" class="w3-input">
+                                <label for="taskDescription">Descripcion de Tarea</label>
+                                <input type="text" id="taskDescription" name="taskDescription" class="form__item__input">
+                            </div>
+                            <div class="form__item" class="w3-input">
+                                <label for="idCoworker">Nombre</label>
+                                <input type="text" id="idCoworker" name="idCoworker" class="form__item__input">
+                            </div>
+                            <div class="form__item" class="w3-input">
+                                <label for="state">Valor Hora</label>
+                                <input type="text" id="state" name="state" class="form__item__input">
+                            </div>
+                            <div class="form__item" class="w3-input">
+                                <label for="horasDiarias">Horas Diarias</label>
+                                <input type="text" id="horasDiarias" name="horasDiarias" class="form__item__input">
+                            </div>
+                            <div class="form__botones">
+                                <button type="button" class="btn btn-primary">Enviar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-
-            <footer class="item3">
-                <p class="showes">Autor: Emma Ines Wahnish</p>
-                <p>Soporte: <a href="mailto:helpdesk@groovinads.com">helpdesk@groovinads.com</a></p>
-            </footer>
         </div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
-            integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
-            crossorigin="anonymous"></script>
+    </div>
+    <footer class="item3">
+        <p class="showes">Autor: Emma Ines Wahnish</p>
+        <p>Soporte: <a href="mailto:helpdesk@groovinads.com">helpdesk@groovinads.com</a></p>
+    </footer>
 
-        <script src="./js/clase20000WahnishClases03.js"></script>
-        <script src="./js/clase20000WahnishClases04.js"></script>
-        <script>
-            function agregarColaborador() {
-                // se prepara para en el futuro usar el modal
-                document.getElementById('coworker').style.display = 'block';
-            }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+        crossorigin="anonymous"></script>
 
-            function eliminarColaborador() {
-                alert("Aca ira baja a colaborador")
-            }
-            function modificarColaborador() {
-                alert("Aca ira modificacion a colaborador")
-            }
-            function agregarTarea() {
-                alert("Aca ira alta de tareas al plan")
-            }
-            function eliminarTarea() {
-                alert("Aca ira eliminacion de tareas del plan")
-            }
-            function desplegarPresupuesto() {
-                alert("Aca se despliega el plan presupuestado")
-            }
-        </script>
+    <script src="js/index.js"></script>
+    <!--<script src="./js/clase20000WahnishClases04.js"></script>-->
+    <script>
+
+        function eliminarColaborador() {
+            alert("Aca ira baja a colaborador")
+        }
+        function modificarColaborador() {
+            alert("Aca ira modificacion a colaborador")
+        }
+        function agregarTarea() {
+            alert("Aca ira alta de tareas al plan")
+        }
+        function eliminarTarea() {
+            alert("Aca ira eliminacion de tareas del plan")
+        }
+        function desplegarPresupuesto() {
+            alert("Aca se despliega el plan presupuestado")
+        }
+    </script>
 </body>
 
 </html>
