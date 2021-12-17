@@ -93,7 +93,9 @@ class Coworker {
         const item = this.lista.find(element => element.id === itemId)
 
         if (!item) {
-            throw new Error('No existe la tarea id:' + itemId)
+            alert('No existe colaborador con id: ' + itemId);
+        } else {
+            alert("Operacion de colaborador " + itemId + " exitosa");
         }
 
         return item;
@@ -280,12 +282,29 @@ function listCoworkers() {
     alert(theCoworker);
 }
 
-function newCoworker() {
+function deleteCoworker() {
+
+    document.getElementById('coworkerD').style.display = 'block';
+
+    const formDeleteCoworker = document.getElementById('formDeleteCoworker');
+    const idCoworker = document.getElementById('idCoworker');
+
+    formDeleteCoworker.addEventListener('submit', () => {
+        const theId = idCoworker.value;
+
+        coworker.deleteItem(theId);
+    })
+
+}
+
+function newCoworkerForm() {
     const coworkers = coworker.findAllItems();
     let i = coworkers.length;
-    console.log(i);
-    let theId = i.toString();
-    theId = theId.trim();
+    let theId = coworkers[i - 1].id.substr(1);
+    let resultado = +theId + 1;
+    resultado = resultado.toString();
+    theId = resultado.trim();
+    console.log(theId);
     switch (theId.length) {
         case 1:
             theId = "W00" + theId;
@@ -300,26 +319,25 @@ function newCoworker() {
             alert("Id overflow***");
     }
     id = theId;
-    surname = prompt("Ingrese el Apellido del colaborador");
-    // Se valida la información ingresada
-    while (!surname || Number(surname) || surname == '') {
-        alert("Es obligtorio ingresar un apellido no nulo");
-        surname = prompt("Ingrese el Apellido del colaborador");
-    }
-    firstname = prompt("Ingrese el Nombre del colaborador");
-    // Se valida la información ingresada
-    while (!firstname || Number(firstname) || firstname == '') {
-        alert("Es obligtorio ingresar un nombre no nulo");
-        firstname = prompt("Ingrese el Nombre del colaborador");
-    }
-    // Se asume que se pacto un valor hora de 15 U$S
-    valuePerHour = 15;
-    // Se asume que se trabajan 6 horas diarias
-    hoursPerDay = 6;
 
-    const colaboradorNuevo = {id: id, surname: surname, firstname: firstname, valuePerHour: valuePerHour, hoursPerDay: hoursPerDay };
-    
-    coworker.createItem(colaboradorNuevo);
+    document.getElementById('coworker').style.display = 'block';
+
+    const formCoworker = document.getElementById('formCoworker');
+    const apellido = objectToDestruct = document.getElementById('surname');
+    const nombre = document.getElementById('firstname');
+    const valorHora = document.getElementById('valuePerHour');
+    const horasDia = document.getElementById('hoursPerDay');
+
+    formCoworker.addEventListener('submit', () => {
+        const surname = apellido.value;
+        const firstname = nombre.value;
+        const valuePerHour = valorHora.value;
+        const hoursPerDay = horasDia.value;
+
+        const colaboradorNuevo = { id: id, surname: surname, firstname: firstname, valuePerHour: valuePerHour, hoursPerDay: hoursPerDay };
+
+        coworker.createItem(colaboradorNuevo);
+    })
 
 }
 

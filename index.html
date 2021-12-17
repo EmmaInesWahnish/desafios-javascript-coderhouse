@@ -33,9 +33,9 @@
                             Colaboradores
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0);" onclick="newCoworker()">Alta
+                            <a class="dropdown-item" href="javascript:void(0);" onclick="newCoworkerForm()">Alta
                                 de Colaborador</a>
-                            <a class="dropdown-item" href="javascript:void(0);" onclick="eliminarColaborador()">Baja
+                            <a class="dropdown-item" href="javascript:void(0);" onclick="deleteCoworker()">Baja
                                 de Colaborador</a>
                             <a class="dropdown-item" href="javascript:void(0);"
                                 onclick="modificarColaborador()">Modificacion de colaborador</a>
@@ -105,32 +105,54 @@
                 </tr>
             </table>
         </div>
-        <!--Modal para uso futuro-->
+        <!--Modal alta coworker-->
         <div id="coworker" class="w3-modal w3-transparent w3-auto w3-text-indigo">
             <div class="w3-modal-content">
                 <div class="modal-container">
                     <span onclick="document.getElementById('coworker').style.display='none'"
                         class="w3-button w3-display-topright">&times;</span>
                     <div class=container>
-                        <form class="showes" class="form" action="/" id="formulario-login" method="POST">
+                        <form class="showes" class="form" action="javascript:void(0);" id="formCoworker">
                             <div class="form__item" class="w3-input">
-                                <label for="taskDescription">Descripcion de Tarea</label>
-                                <input type="text" id="taskDescription" name="taskDescription" class="form__item__input">
+                                <label for="surname">Apellido</label>
+                                <input type="text" id="surname" name="surname" class="form__item__input">
                             </div>
                             <div class="form__item" class="w3-input">
-                                <label for="idCoworker">Nombre</label>
-                                <input type="text" id="idCoworker" name="idCoworker" class="form__item__input">
+                                <label for="firstname">Nombre</label>
+                                <input type="text" id="firstname" name="firstname" class="form__item__input">
                             </div>
                             <div class="form__item" class="w3-input">
-                                <label for="state">Valor Hora</label>
-                                <input type="text" id="state" name="state" class="form__item__input">
+                                <label for="valuePerHour">Valor Hora</label>
+                                <input type="number" id="valuePerHour" name="valuePerHour" class="form__item__input">
                             </div>
                             <div class="form__item" class="w3-input">
-                                <label for="horasDiarias">Horas Diarias</label>
-                                <input type="text" id="horasDiarias" name="horasDiarias" class="form__item__input">
+                                <label for="hoursPerDay">Horas Diarias</label>
+                                <input type="text" id="hoursPerDay" name="hoursPerDay" class="form__item__input">
                             </div>
                             <div class="form__botones">
-                                <button type="button" class="btn btn-primary">Enviar</button>
+                                <button type="submit" id="boton" class="btn btn-primary">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modal baja coworker-->
+        <div id="coworkerD" class="w3-modal w3-transparent w3-auto w3-text-indigo">
+            <div class="w3-modal-content">
+                <div class="modal-container">
+                    <span onclick="document.getElementById('coworkerD').style.display='none'"
+                        class="w3-button w3-display-topright">&times;</span>
+                    <div class=container>
+                        <form class="showes" class="form" action="javascript:void(0);" id="formDeleteCoworker">
+                            <div class="form__item" class="w3-input">
+                                <label for="idCoworker">Id de Colaborador</label>
+                                <input type="text" id="idCoworker" name="idCoworker" class="form__item__input">
+                            </div>
+                            <span id="successful"></span>
+                            <span id="unsuccessful"></span>
+                            <div class="form__botones">
+                                <button type="submit" id="boton" class="btn btn-primary">Enviar</button>
                             </div>
                         </form>
                     </div>
