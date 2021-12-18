@@ -101,6 +101,12 @@ class Coworker {
         return item;
     }
 
+    findCalByIdItem(itemId) {
+        const item = this.lista.find(element => element.id === itemId)
+
+        return item;
+    }
+
     updateValuePerHour(itemId, valorHora) {
         if (Number(diasTrabajo) > 0) {
             const item = this.findOneByIdItem(itemId);
@@ -209,7 +215,7 @@ function calculateCost() {
     tareas.forEach(element => {
         let idResponsable = element.assignedTo;
         if (idResponsable != '') {
-            const colaborador = coworker.findOneByIdItem(idResponsable);
+            const colaborador = coworker.findCalByIdItem(idResponsable);
             const valorDia = colaborador.hoursPerDay * colaborador.valuePerHour;
             costoDelPlan = costoDelPlan + element.workDays * valorDia;
         }
