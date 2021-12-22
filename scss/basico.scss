@@ -44,6 +44,10 @@ $size-font:("maschico":0.5em, "chico":0.8em, "mediano":1em, "normal":1.5em, "gra
     font-size: map-get($size-font,"normal");
   }
 
+  .isRed {
+    color: $is-red;
+  }
+
   /*botones*/
   button, .botones-basico {
     color: $color-default;

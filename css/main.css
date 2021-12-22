@@ -38,6 +38,9 @@ body {
   background-color: #EFEFEF;
   font-size: 1.5em; }
 
+.isRed {
+  color: red; }
+
 /*botones*/
 button, .botones-basico, .form__botones__reset, .form__botones__submit {
   color: #12355B;

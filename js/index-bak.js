@@ -4,8 +4,6 @@ import { Coworker } from "./coworker.js";
 
 import { renderList } from "./render-list.js";
 
-import { renderListCoworker} from "./render-list-coworker.js";
-
 //modulo
 localStorage.clear();
 
@@ -41,9 +39,7 @@ const tasks = task.findAllItems();
 
 const tasksTable = "tasks-table"
 
-const letra = "F"
-
-renderList(tasksTable, tasks, letra);
+renderList(tasksTable, tasks);
 
 const coworker = new Coworker;
 
@@ -138,29 +134,12 @@ const list_coworkers = document.getElementById('listCoworkers');
 
 list_coworkers.addEventListener('click', function () {
 
-    document.getElementById('modalForm').style.display = 'block';
-
-    const selectCoworker = document.getElementById('theForm');
-
-    selectCoworker.innerHTML = `<h2>Lista de colaboradores</h2>
-                    <table id="coworkers-table" class="table table-bordered">
-                        <tr>
-                            <th>Id</th>
-                            <th>Apellido</th>
-                            <th>Nombre</th>
-                            <th>Valor hora</th>
-                            <th>Horas diarias</th>
-                        </tr>
-                    </table>`
-    
+    let theCoworker = "";
     const coworkers = coworker.findAllItems();
-
-    let coworkersTable ="coworkers-table";
-
-    let letter = "R";
-
-    renderListCoworker(coworkersTable, coworkers, letter);
-
+    coworkers.forEach(element => {
+        theCoworker += `Id ${element.id}: ${element.firstname} ${element.surname} Valor hora ${element.valuePerHour} Cantidad de horas diarias ${element.hoursPerDay}\n`;
+    })
+    alert(theCoworker);
 });
 
 const delete_coworker = document.getElementById('deleteCoworker');
@@ -226,7 +205,7 @@ delete_coworker.addEventListener('click', function () {
 
         if (coworkerAssigned) {
 
-            let theComment = "El colaborador esta asignado a una tarea. Podra darlo de baja despues de asignar otro colaborador a la misma "
+            let theComment = "El colaborador esta asignado a una tarea. Podra darlo de baja despues de asignar otro colaborados a la misma "
 
             document.getElementById('isAssigned').innerHTML = theComment;
 
@@ -267,7 +246,7 @@ new_coworker.addEventListener('click', function () {
     document.getElementById('coworker').style.display = 'block';
 
     formCoworker.addEventListener('submit', function () {
-
+        
         const formCoworker = document.getElementById('formCoworker');
         const apellido = document.getElementById('surname');
         const nombre = document.getElementById('firstname');
