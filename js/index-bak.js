@@ -4,16 +4,22 @@ import { Coworker } from "./coworker.js";
 
 import { renderList } from "./render-list.js";
 
+import { renderListCoworker} from "./render-list-coworker.js";
+
+import {fillSelector} from "./fill-selector.js";
+
+import {renderSelector} from "./render-selector.js";
+
 //modulo
 localStorage.clear();
 
 const tareas = [
-    { id: "T000", description: "Relevamiento de requerimientos", assignedTo: "W000", state: "No", workDays: 2, tagname: "F00" },
-    { id: "T001", description: "Diagrama de funcionalidad", assignedTo: "W001", state: "No", workDays: 5, tagname: "F01" },
-    { id: "T002", description: "Validacion del diagrama", assignedTo: "W000", state: "No", workDays: 1, tagname: "F02" },
-    { id: "T003", description: "Desarrollo de la aplicacion", assignedTo: "W003", state: "No", workDays: 15, tagname: "F03" },
-    { id: "T004", description: "Testing de la aplicacion", assignedTo: "W002", state: "No", workDays: 5, tagname: "F04" },
-    { id: "T005", description: "Puesta en produccion", assignedTo: "W001", state: "No", workDays: 2, tagname: "F05" },
+    { id: "T000", description: "Relevamiento de requerimientos", assignedTo: "W000", state: "No", workDays: 2 },
+    { id: "T001", description: "Diagrama de funcionalidad", assignedTo: "W001", state: "No", workDays: 5 },
+    { id: "T002", description: "Validacion del diagrama", assignedTo: "W000", state: "No", workDays: 1 },
+    { id: "T003", description: "Desarrollo de la aplicacion", assignedTo: "W003", state: "No", workDays: 15 },
+    { id: "T004", description: "Testing de la aplicacion", assignedTo: "W002", state: "No", workDays: 5 },
+    { id: "T005", description: "Puesta en produccion", assignedTo: "W001", state: "No", workDays: 2 },
 ]
 
 const colaboradores = [
@@ -39,7 +45,9 @@ const tasks = task.findAllItems();
 
 const tasksTable = "tasks-table"
 
-renderList(tasksTable, tasks);
+const letra = "F"
+
+renderList(tasksTable, tasks, letra);
 
 const coworker = new Coworker;
 
@@ -58,7 +66,8 @@ const costo = document.getElementById('calculateCost')
 
 costo.addEventListener('click', function () {
     let costoDelPlan = 0;
-    tareas.forEach(element => {
+    let tasks = task.findAllItems();
+    tasks.forEach(element => {
         let idResponsable = element.assignedTo;
         if (idResponsable != '') {
             const colaborador = coworker.findCalByIdItem(idResponsable);
@@ -91,7 +100,7 @@ const modify_plan = document.getElementById('modifyPlan');
 modify_plan.addEventListener('click', function () {
     let anotherTask = "S";
     do {
-        theTask = '';
+        let theTask = '';
         while (!theTask || Number(theTask) || theTask == '') {
             theTask = prompt("Ingrese Id de tarea a modificar")
         }
@@ -107,7 +116,7 @@ modify_plan.addEventListener('click', function () {
 
 });
 
-const modify_coworker = document.getElementById('modifyCoworker');
+const modify_coworker = document.getElementById('modifyCoworkerInPLan');
 
 modify_coworker.addEventListener('click', function () {
     let anotherTask = "S";
@@ -134,28 +143,38 @@ const list_coworkers = document.getElementById('listCoworkers');
 
 list_coworkers.addEventListener('click', function () {
 
-    let theCoworker = "";
+    document.getElementById('modalForm').style.display = 'block';
+
+    const selectCoworker = document.getElementById('theForm');
+
+    selectCoworker.innerHTML = `<h2>Lista de colaboradores</h2>
+                    <table id="coworkers-table" class="table table-bordered">
+                        <tr>
+                            <th>Id</th>
+                            <th>Apellido</th>
+                            <th>Nombre</th>
+                            <th>Valor hora</th>
+                            <th>Horas diarias</th>
+                        </tr>
+                    </table>`
+    
     const coworkers = coworker.findAllItems();
-    coworkers.forEach(element => {
-        theCoworker += `Id ${element.id}: ${element.firstname} ${element.surname} Valor hora ${element.valuePerHour} Cantidad de horas diarias ${element.hoursPerDay}\n`;
-    })
-    alert(theCoworker);
+
+    let coworkersTable ="coworkers-table";
+
+    let letter = "R";
+
+    renderListCoworker(coworkersTable, coworkers, letter);
+
 });
 
 const delete_coworker = document.getElementById('deleteCoworker');
 
 delete_coworker.addEventListener('click', function () {
 
-    const coworkers = coworker.findAllItems();
-
     let data = [];
 
-    coworkers.forEach(element => {
-        data.push({
-            id: element.id,
-            text: element.firstname + " " + element.surname
-        });
-    })
+    data = fillSelector(data, Coworker);
 
     document.getElementById('modalForm').style.display = 'block';
 
@@ -167,18 +186,10 @@ delete_coworker.addEventListener('click', function () {
 
     const inSelect = document.getElementById('selector');
 
-    data.forEach(element => {
-        let myOption = element.id + " " + element.text;
-        console.log(myOption);
-        const theOption = document.createElement('option');
-        theOption.innerHTML = `<option>
-                                ${myOption}  
-                              </option>`
+    renderSelector(data,inSelect);    
 
-        inSelect.appendChild(theOption);
-    });
+    const theButton = document.createElement('div');
 
-    const theButton = document.createElement('div')
     theButton.innerHTML = `<p id="isAssigned" class="isRed"><p>
                             <button type="submit" id="boton" class="btn btn-oval btn-primary">
                                 Enviar
@@ -205,7 +216,7 @@ delete_coworker.addEventListener('click', function () {
 
         if (coworkerAssigned) {
 
-            let theComment = "El colaborador esta asignado a una tarea. Podra darlo de baja despues de asignar otro colaborados a la misma "
+            let theComment = "El colaborador esta asignado a una tarea. Podra darlo de baja despues de asignar otro colaborador a la misma "
 
             document.getElementById('isAssigned').innerHTML = theComment;
 
@@ -213,7 +224,7 @@ delete_coworker.addEventListener('click', function () {
             coworker.deleteItem(theId);
         }
 
-        formCoworker.reset();
+        selectCoworker.reset();
     })
 
 });
@@ -227,7 +238,6 @@ new_coworker.addEventListener('click', function () {
     let resultado = +theId + 1;
     resultado = resultado.toString();
     theId = resultado.trim();
-    console.log(theId);
     switch (theId.length) {
         case 1:
             theId = "W00" + theId;
@@ -246,7 +256,7 @@ new_coworker.addEventListener('click', function () {
     document.getElementById('coworker').style.display = 'block';
 
     formCoworker.addEventListener('submit', function () {
-        
+
         const formCoworker = document.getElementById('formCoworker');
         const apellido = document.getElementById('surname');
         const nombre = document.getElementById('firstname');
@@ -268,5 +278,141 @@ new_coworker.addEventListener('click', function () {
 
 });
 
+const delete_task = document.getElementById('deleteTask');
 
+delete_task.addEventListener('click', function () {
+
+    let data = [];
+
+    data = fillSelector(data, Task);
+
+    document.getElementById('modalForm').style.display = 'block';
+
+    const selectTask = document.getElementById('theForm');
+
+    theForm.innerHTML = `<h2>Eliminacion de Tarea</h2>
+                        <select id="selector">
+                        </select>`
+
+    const inSelect = document.getElementById('selector');
+
+    renderSelector(data,inSelect);    
+
+    const theButton = document.createElement('div');
+
+    theButton.innerHTML = `<button type="submit" id="boton" class="btn btn-oval btn-primary">
+                                Enviar
+                            </button>
+                           </div>`
+
+    selectTask.appendChild(theButton);
+
+    selectTask.addEventListener('submit', () => {
+
+        const idTask = document.getElementById('selector');
+
+        const theId = idTask.value.substr(0, 4);
+
+        task.deleteItem(theId);
+
+        document.getElementById(theId).remove();
+
+        selectTask.reset();
+    })
+
+});
+
+const new_task = document.getElementById('newTask');
+
+new_task.addEventListener('click', function () {
+    let tasks = task.findAllItems();
+    let theId = [];
+    let i = tasks.length;
+    let iSearch = i;
+    if (!i) i = 0;
+    if (i > 0) {
+        iSearch = (Number(tasks[i - 1].id.substr(1)) + 1).toString().trim();
+    } else {
+        iSearch = i + '';
+    }
+    theId[i] = "I" + iSearch.padStart(4, '0');
+    var theTaskContainer = document.getElementById('tasks-table');
+    var theTaskRow = document.createElement('tr');
+    theTaskRow.setAttribute('id', theId[i]);
+    theTaskRow.innerHTML = `<td>
+        <input type='hidden' id=${theId[i] + "C0"}  value='${theId[i]}'>
+        <p>
+            ${theId[i]}
+        </p>
+    </td>
+    <td>
+        <input id=${theId[i] + "C1"} autocomplete="off" type="text">
+    </td>
+    <td>
+        <select class="js-example-basic-single" name="coworker option" id="selector"}>
+        </select>
+    </td>
+    <td>
+    <select class="js-example-basic-single" name="yes no option" id=${theId[i] + "C3"}>
+        <option value="Si">Si</option>
+        <option value="No">No</option>
+    </select>
+    </td>
+    <td>
+        <input id=${theId[i] + "C4"} autocomplete="off" type="number">
+    </td>
+    <td>
+        <button id=${theId[i] + "C5"} class="btn btn-oval btn-xs btn-success ph-sm mt-sm"><em class="fa fa-plus ml-sm"></em> Add</button>
+    </td>
+    <td>
+        <button id=${theId[i] + "C6"} class="btn btn-oval btn-xs btn-secondary ph-sm mt-sm"></em>Cancel</button>
+    </td>`;
+
+    theTaskContainer.appendChild(theTaskRow);
+
+    let data = [];
+
+    data = fillSelector(data, Coworker);
+
+    const inSelect = document.getElementById('selector');
+
+    renderSelector(data,inSelect);    
+
+    document.getElementById(theId[i] + "C5").addEventListener('click', function () {
+
+        const identificacion = document.getElementById(theId[i] + "C0");
+        const descripcion = document.getElementById(theId[i] + "C1");
+        const colaborador = document.getElementById('selector');
+        const estado = document.getElementById(theId[i] + "C3");
+        const horas = document.getElementById(theId[i] + "C4");
+
+        const id = identificacion.value;
+        const description = descripcion.value;
+        const assignedTo = colaborador.value;
+        const state = estado.value;
+        const workDays = horas.value;
+
+        const tareaNueva = { id: id, description: description, assignedTo: assignedTo, state: state, workDays: workDays };
+
+        task.createItem(tareaNueva);
+
+        theTaskContainer.innerHTML = "";
+
+        const tasks = task.findAllItems();
+
+        const tasksTable = "tasks-table"
+        
+        const letra = "F"
+        
+        renderList(tasksTable, tasks, letra);
+
+    });
+
+    document.getElementById(theId[i] + "C6").addEventListener('click', function () {
+
+        document.getElementById(theId[i]).remove();
+
+    });
+
+});
 

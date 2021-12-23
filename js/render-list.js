@@ -33,6 +33,8 @@ export const renderList = (taskId, tasks, letter) => {
 
         const itemTask = document.createElement('tr');
 
+        itemTask.setAttribute('id', item.id)
+
         itemTask.innerHTML = `<td>
                                     <p id=${colId[0]}> 
                                         ${item.id} 

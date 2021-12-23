@@ -36,7 +36,7 @@
                                 Colaborador</a>
                             <a class="dropdown-item" href="javascript:void(0);" id="deleteCoworker">Baja de
                                 Colaborador</a>
-                            <a class="dropdown-item" href="javascript:void(0);" id="modificarColaborador">Modificacion
+                            <a class="dropdown-item" href="javascript:void(0);" id="modifyCoworker">Modificacion
                                 de colaborador</a>
                             <a class="dropdown-item" href="javascript:void(0);" id="listCoworkers">Listado de
                                 Colaboradores</a>
@@ -48,14 +48,14 @@
                             Plan
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0);" id="agregarTarea">Nueva Tarea</a>
+                            <a class="dropdown-item" href="javascript:void(0);" id="newTask">Alta de Tarea</a>
                             <a class="dropdown-item" href="javascript:void(0);" id="modifyPlan">Modificacion Dias
                                 trabajo</a>
-                            <a class="dropdown-item" href="javascript:void(0);" id="modifyCoworker">Modificacion de
+                            <a class="dropdown-item" href="javascript:void(0);" id="modifyCoworkerInPLan">Modificacion de
                                 Colaborador</a>
                             <a class="dropdown-item" href="javascript:void(0);" id="changeTaskStatus">Finalizacion de
                                 Tarea</a>
-                            <a class="dropdown-item" href="javascript:void(0);" id="eliminarTarea">Eliminacion de
+                            <a class="dropdown-item" href="javascript:void(0);" id="deleteTask">Eliminacion de
                                 Tarea</a>
                         </div>
                     </li>
@@ -66,7 +66,7 @@
                         <a class="nav-link" href="javascript:void(0);" id="calculateCost">Calculo de Costo</a>
                     </li>
                     <li class="nav-item bg-primary">
-                        <a class="nav-link" href="javascript:void(0);" onclick="desplegarPresupuesto()">Listado de
+                        <a class="nav-link" href="javascript:void(0);" id="displayBudget">Listado de
                             Presupuesto</a>
                     </li>
                 </ul>
@@ -141,30 +141,6 @@
                 </div>
             </div>
         </div>
-        <!--Modal baja coworker-->
-        <div id="coworkerD" class="w3-modal w3-transparent w3-auto w3-text-indigo">
-            <div class="w3-modal-content">
-                <div class="modal-container">
-                    <span onclick="document.getElementById('coworkerD').style.display='none'"
-                        class="w3-button w3-display-topright">&times;</span>
-                    <div class="container">
-                        <form class="showes" class="form" action="javascript:void(0);" id="formDeleteCoworker">
-                            <div class="form__item" class="w3-input">
-                                <label for="idCoworker">Id de Colaborador</label>
-                                <input type="text" id="idCoworker" name="idCoworker" class="form__item__input" />
-                            </div>
-                            <span id="successful"></span>
-                            <span id="unsuccessful"></span>
-                            <div class="form__botones">
-                                <button type="submit" id="boton" class="btn btn-primary">
-                                    Enviar
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!--Modal generico-->
         <div id="modalForm" class="w3-modal w3-transparent w3-auto w3-text-indigo">
             <div class="w3-modal-content">
@@ -199,21 +175,6 @@
         crossorigin="anonymous"></script>
 
     <script type="module" src="js/index.js"></script>
-    <!--<script src="./js/clase20000WahnishClases04.js"></script>-->
-    <script>
-        function modificarColaborador() {
-            alert("Aca ira modificacion a colaborador");
-        }
-        function agregarTarea() {
-            alert("Aca ira alta de tareas al plan");
-        }
-        function eliminarTarea() {
-            alert("Aca ira eliminacion de tareas del plan");
-        }
-        function desplegarPresupuesto() {
-            alert("Aca se despliega el plan presupuestado");
-        }
-    </script>
 </body>
 
 </html>
