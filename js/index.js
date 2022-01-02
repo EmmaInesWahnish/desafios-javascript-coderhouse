@@ -132,6 +132,7 @@ modify_plan.addEventListener('click', function () {
 });
 //fin bloque para modificar la cantidad de dias de una tarea
 
+//bloque para modificar el colaborador de una tarea
 const modify_coworker = document.getElementById('modifyCoworkerInPLan');
 
 modify_coworker.addEventListener('click', function () {
@@ -154,7 +155,9 @@ modify_coworker.addEventListener('click', function () {
     } while (anotherTask != "N");
 
 });
+//fin bloque para modificar colaborador de una tarea
 
+//bloque para listar colaboradores
 const list_coworkers = document.getElementById('listCoworkers');
 
 list_coworkers.addEventListener('click', function () {
@@ -183,7 +186,9 @@ list_coworkers.addEventListener('click', function () {
     renderListCoworker(coworkersTable, coworkers, letter);
 
 });
+//Fin bloque para listar colaboradores
 
+//bloque para dar la baja a un colaborador
 const delete_coworker = document.getElementById('deleteCoworker');
 
 delete_coworker.addEventListener('click', function () {
@@ -244,7 +249,9 @@ delete_coworker.addEventListener('click', function () {
     })
 
 });
+//fin bloque para dar de baja un colaborador
 
+//bloque para dar de alta un colaborador
 const new_coworker = document.getElementById('newCoworkerForm')
 
 new_coworker.addEventListener('click', function () {
@@ -293,7 +300,9 @@ new_coworker.addEventListener('click', function () {
     });
 
 });
+//fin de bloque para dar de alta un colaborador
 
+//bloque para eliminar una tarea
 const delete_task = document.getElementById('deleteTask');
 
 delete_task.addEventListener('click', function () {
@@ -337,7 +346,9 @@ delete_task.addEventListener('click', function () {
     })
 
 });
+//fin bloque para eliminar una tarea
 
+//bloque para dar de alta una tarea
 const new_task = document.getElementById('newTask');
 
 new_task.addEventListener('click', function () {
@@ -442,4 +453,4 @@ new_task.addEventListener('click', function () {
     });
 
 });
-
+//fin bloque para dar de alta una tarea
