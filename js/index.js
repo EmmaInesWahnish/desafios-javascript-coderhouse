@@ -4,15 +4,19 @@ import { Coworker } from "./coworker.js";
 
 import { renderList } from "./render-list.js";
 
-import { renderListCoworker} from "./render-list-coworker.js";
+import { renderListCoworker } from "./render-list-coworker.js";
 
-import {fillSelector} from "./fill-selector.js";
+import { fillSelector } from "./fill-selector.js";
 
-import {renderSelector} from "./render-selector.js";
+import { renderSelector } from "./render-selector.js";
 
-//modulo
+//modulo principal
 localStorage.clear();
 
+//variable indicadora dropdown de plan habilitado o deshabilitado
+let navbardrop02On = true;
+
+//datos iniciales que se cargaran en local storage
 const tareas = [
     { id: "T000", description: "Relevamiento de requerimientos", assignedTo: "W000", state: "No", workDays: 2 },
     { id: "T001", description: "Diagrama de funcionalidad", assignedTo: "W001", state: "No", workDays: 5 },
@@ -31,6 +35,7 @@ const colaboradores = [
     { id: "W005", surname: "Wella", firstname: "German", valuePerHour: 20, hoursPerDay: 5 },
 ]
 
+//Inicio carga de tareas 
 const task = new Task();
 
 let element = {};
@@ -43,25 +48,31 @@ for (element of tareas) {
 
 const tasks = task.findAllItems();
 
-const tasksTable = "tasks-table"
+const tasksTable = "tasks-table";
 
-const letra = "F"
+const letra = "F";
 
 renderList(tasksTable, tasks, letra);
+//fin carga de tareas
 
+//Inicio carga de colaboradores
 const coworker = new Coworker;
 
 for (elem of colaboradores) {
     coworker.createItem(elem);
 }
+//fin carga de colaboradores
 
+//bloque para calcular el avance del plan
 const porcentaje = document.getElementById('percentComplete')
 
 porcentaje.addEventListener('click', function () {
     let resultado = Number(task.tasksPercentCompletion()) + " %";
     document.getElementById("avance").innerHTML = resultado;
 })
+//Fin bloque para calcular el avance del plan
 
+//bloque para calcular costo del plan
 const costo = document.getElementById('calculateCost')
 
 costo.addEventListener('click', function () {
@@ -78,7 +89,9 @@ costo.addEventListener('click', function () {
     let resultado = "U$S " + costoDelPlan;
     document.getElementById("costo").innerHTML = resultado;
 });
+//fin bloque para calcular costo del plan
 
+//bloque para modificar el estado de una tarea
 const status_tarea = document.getElementById('changeTaskStatus');
 
 status_tarea.addEventListener('click', function () {
@@ -94,7 +107,9 @@ status_tarea.addEventListener('click', function () {
     } while (anotherTask != "N");
 
 });
+//fin bloque para modificar el estado de una tarea
 
+//bloque para modificar la cantidad de dias de una tarea
 const modify_plan = document.getElementById('modifyPlan');
 
 modify_plan.addEventListener('click', function () {
@@ -115,6 +130,7 @@ modify_plan.addEventListener('click', function () {
     } while (anotherTask != "N");
 
 });
+//fin bloque para modificar la cantidad de dias de una tarea
 
 const modify_coworker = document.getElementById('modifyCoworkerInPLan');
 
@@ -157,10 +173,10 @@ list_coworkers.addEventListener('click', function () {
                             <th>Horas diarias</th>
                         </tr>
                     </table>`
-    
+
     const coworkers = coworker.findAllItems();
 
-    let coworkersTable ="coworkers-table";
+    let coworkersTable = "coworkers-table";
 
     let letter = "R";
 
@@ -186,7 +202,7 @@ delete_coworker.addEventListener('click', function () {
 
     const inSelect = document.getElementById('selector');
 
-    renderSelector(data,inSelect);    
+    renderSelector(data, inSelect);
 
     const theButton = document.createElement('div');
 
@@ -296,7 +312,7 @@ delete_task.addEventListener('click', function () {
 
     const inSelect = document.getElementById('selector');
 
-    renderSelector(data,inSelect);    
+    renderSelector(data, inSelect);
 
     const theButton = document.createElement('div');
 
@@ -325,6 +341,9 @@ delete_task.addEventListener('click', function () {
 const new_task = document.getElementById('newTask');
 
 new_task.addEventListener('click', function () {
+    let navbardrop02 = document.getElementById('navbardrop02');
+    navbardrop02On = false;
+    navbardrop02.disabled = true;
     let tasks = task.findAllItems();
     let theId = [];
     let i = tasks.length;
@@ -335,7 +354,7 @@ new_task.addEventListener('click', function () {
     } else {
         iSearch = i + '';
     }
-    theId[i] = "I" + iSearch.padStart(4, '0');
+    theId[i] = "T" + iSearch.padStart(3, '0');
     var theTaskContainer = document.getElementById('tasks-table');
     var theTaskRow = document.createElement('tr');
     theTaskRow.setAttribute('id', theId[i]);
@@ -349,7 +368,7 @@ new_task.addEventListener('click', function () {
         <input id=${theId[i] + "C1"} autocomplete="off" type="text">
     </td>
     <td>
-        <select class="js-example-basic-single" name="coworker option" id="selector"}>
+        <select class="js-example-basic-single" name="coworker option" id="selector">
         </select>
     </td>
     <td>
@@ -376,7 +395,7 @@ new_task.addEventListener('click', function () {
 
     const inSelect = document.getElementById('selector');
 
-    renderSelector(data,inSelect);    
+    renderSelector(data, inSelect);
 
     document.getElementById(theId[i] + "C5").addEventListener('click', function () {
 
@@ -401,9 +420,13 @@ new_task.addEventListener('click', function () {
         const tasks = task.findAllItems();
 
         const tasksTable = "tasks-table"
-        
+
         const letra = "F"
-        
+
+        navbardrop02On = true;
+
+        navbardrop02.disabled = false;
+
         renderList(tasksTable, tasks, letra);
 
     });
@@ -411,6 +434,10 @@ new_task.addEventListener('click', function () {
     document.getElementById(theId[i] + "C6").addEventListener('click', function () {
 
         document.getElementById(theId[i]).remove();
+
+        navbardrop02On = true;
+
+        navbardrop02.disabled = false;
 
     });
 
