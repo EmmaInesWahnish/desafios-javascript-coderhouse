@@ -4,15 +4,19 @@ import { Coworker } from "./coworker.js";
 
 import { renderList } from "./render-list.js";
 
-import { renderListCoworker} from "./render-list-coworker.js";
+import { renderListCoworker } from "./render-list-coworker.js";
 
-import {fillSelector} from "./fill-selector.js";
+import { fillSelector } from "./fill-selector.js";
 
-import {renderSelector} from "./render-selector.js";
+import { renderSelector } from "./render-selector.js";
 
-//modulo
+//modulo principal
 localStorage.clear();
 
+//variable indicadora dropdown de plan habilitado o deshabilitado
+let navbardrop02On = true;
+
+//datos iniciales que se cargaran en local storage
 const tareas = [
     { id: "T000", description: "Relevamiento de requerimientos", assignedTo: "W000", state: "No", workDays: 2 },
     { id: "T001", description: "Diagrama de funcionalidad", assignedTo: "W001", state: "No", workDays: 5 },
@@ -31,6 +35,7 @@ const colaboradores = [
     { id: "W005", surname: "Wella", firstname: "German", valuePerHour: 20, hoursPerDay: 5 },
 ]
 
+//Inicio carga de tareas 
 const task = new Task();
 
 let element = {};
@@ -43,28 +48,34 @@ for (element of tareas) {
 
 const tasks = task.findAllItems();
 
-const tasksTable = "tasks-table"
+const tasksTable = "tasks-table";
 
-const letra = "F"
+const letra = "F";
 
 renderList(tasksTable, tasks, letra);
+//fin carga de tareas
 
+//Inicio carga de colaboradores
 const coworker = new Coworker;
 
 for (elem of colaboradores) {
     coworker.createItem(elem);
 }
+//fin carga de colaboradores
 
-const porcentaje = document.getElementById('percentComplete')
+//bloque para calcular el avance del plan
+const $porcentaje = $('#percentComplete')
 
-porcentaje.addEventListener('click', function () {
+$porcentaje.on('click', function () {
     let resultado = Number(task.tasksPercentCompletion()) + " %";
-    document.getElementById("avance").innerHTML = resultado;
+    $("#avance").append(resultado);
 })
+//Fin bloque para calcular el avance del plan
 
-const costo = document.getElementById('calculateCost')
+//bloque para calcular costo del plan
+const $costo = $('#calculateCost')
 
-costo.addEventListener('click', function () {
+$costo.on('click', function () {
     let costoDelPlan = 0;
     let tasks = task.findAllItems();
     tasks.forEach(element => {
@@ -76,12 +87,14 @@ costo.addEventListener('click', function () {
         }
     });
     let resultado = "U$S " + costoDelPlan;
-    document.getElementById("costo").innerHTML = resultado;
+    $("#costo").append(resultado);
 });
+//fin bloque para calcular costo del plan
 
-const status_tarea = document.getElementById('changeTaskStatus');
+//bloque para modificar el estado de una tarea
+const $status_tarea = $('#changeTaskStatus');
 
-status_tarea.addEventListener('click', function () {
+$status_tarea.on('click', function () {
     let anotherTask = "S";
     do {
         let theTask = '';
@@ -94,10 +107,12 @@ status_tarea.addEventListener('click', function () {
     } while (anotherTask != "N");
 
 });
+//fin bloque para modificar el estado de una tarea
 
-const modify_plan = document.getElementById('modifyPlan');
+//bloque para modificar la cantidad de dias de una tarea
+const $modify_plan = $('#modifyPlan');
 
-modify_plan.addEventListener('click', function () {
+$modify_plan.on('click', function () {
     let anotherTask = "S";
     do {
         let theTask = '';
@@ -115,10 +130,12 @@ modify_plan.addEventListener('click', function () {
     } while (anotherTask != "N");
 
 });
+//fin bloque para modificar la cantidad de dias de una tarea
 
-const modify_coworker = document.getElementById('modifyCoworkerInPLan');
+//bloque para modificar el colaborador de una tarea
+const $modify_coworker = $('#modifyCoworkerInPLan');
 
-modify_coworker.addEventListener('click', function () {
+$modify_coworker.on('click', function () {
     let anotherTask = "S";
     do {
         let theTask = '';
@@ -138,16 +155,18 @@ modify_coworker.addEventListener('click', function () {
     } while (anotherTask != "N");
 
 });
+//fin bloque para modificar colaborador de una tarea
 
-const list_coworkers = document.getElementById('listCoworkers');
+//bloque para listar colaboradores
+const $list_coworkers = $('#listCoworkers');
 
-list_coworkers.addEventListener('click', function () {
+$list_coworkers.on('click', function () {
 
-    document.getElementById('modalForm').style.display = 'block';
+    $('#modalForm').show();
 
-    const selectCoworker = document.getElementById('theForm');
+    const $selectCoworker = $("#theForm");
 
-    selectCoworker.innerHTML = `<h2>Lista de colaboradores</h2>
+    $selectCoworker.append(`<h2>Lista de colaboradores</h2>
                     <table id="coworkers-table" class="table table-bordered">
                         <tr>
                             <th>Id</th>
@@ -156,53 +175,52 @@ list_coworkers.addEventListener('click', function () {
                             <th>Valor hora</th>
                             <th>Horas diarias</th>
                         </tr>
-                    </table>`
-    
+                    </table>`);
+
     const coworkers = coworker.findAllItems();
 
-    let coworkersTable ="coworkers-table";
+    let coworkersTable = "coworkers-table";
 
     let letter = "R";
 
     renderListCoworker(coworkersTable, coworkers, letter);
 
 });
+//Fin bloque para listar colaboradores
 
-const delete_coworker = document.getElementById('deleteCoworker');
+//bloque para dar la baja a un colaborador
+const $delete_coworker = $('#deleteCoworker');
 
-delete_coworker.addEventListener('click', function () {
+$delete_coworker.on('click', function () {
 
     let data = [];
 
     data = fillSelector(data, Coworker);
 
-    document.getElementById('modalForm').style.display = 'block';
+    $('#modalForm').show();
 
-    const selectCoworker = document.getElementById('theForm');
+    const $selectCoworker = $('#theForm');
 
-    theForm.innerHTML = `<h2>Baja de colaborador</h2>
+    $selectCoworker.append(`<h2>Baja de colaborador</h2>
                         <select id="selector">
-                        </select>`
+                        </select>`);
 
-    const inSelect = document.getElementById('selector');
+    var $inSelect = $("#selector");
 
-    renderSelector(data,inSelect);    
+    renderSelector(data, $inSelect);
 
-    const theButton = document.createElement('div');
+    $selectCoworker.append(`<div>
+                                <p id="isAssigned" class="isRed"><p>
+                                    <button type="submit" id="boton" class="btn btn-oval btn-primary">
+                                        Enviar
+                                    </button>
+                           </div>`);
 
-    theButton.innerHTML = `<p id="isAssigned" class="isRed"><p>
-                            <button type="submit" id="boton" class="btn btn-oval btn-primary">
-                                Enviar
-                            </button>
-                           </div>`
+    $selectCoworker.on('submit', () => {
 
-    selectCoworker.appendChild(theButton)
+        const $idCoworker = $('#selector');
 
-    selectCoworker.addEventListener('submit', () => {
-
-        const idCoworker = document.getElementById('selector');
-
-        const theId = idCoworker.value.substr(0, 4);
+        const theId = $idCoworker[0].value.substr(0, 4);
 
         const myTasks = task.findAllItems();
 
@@ -218,20 +236,22 @@ delete_coworker.addEventListener('click', function () {
 
             let theComment = "El colaborador esta asignado a una tarea. Podra darlo de baja despues de asignar otro colaborador a la misma "
 
-            document.getElementById('isAssigned').innerHTML = theComment;
+            $('#isAssigned').append(theComment);
 
         } else {
             coworker.deleteItem(theId);
         }
 
-        selectCoworker.reset();
+        $('#modalForm').hide();
     })
 
 });
+//fin bloque para dar de baja un colaborador
 
-const new_coworker = document.getElementById('newCoworkerForm')
+//bloque para dar de alta un colaborador
+const $new_coworker = $('#newCoworkerForm');
 
-new_coworker.addEventListener('click', function () {
+$new_coworker.on('click', function () {
     const coworkers = coworker.findAllItems();
     let i = coworkers.length;
     let theId = coworkers[i - 1].id.substr(1);
@@ -253,78 +273,83 @@ new_coworker.addEventListener('click', function () {
     }
     let id = theId;
 
-    document.getElementById('coworker').style.display = 'block';
+    $('#coworker').show();
 
-    formCoworker.addEventListener('submit', function () {
+    $('#coworker').on('submit', function () {
 
-        const formCoworker = document.getElementById('formCoworker');
-        const apellido = document.getElementById('surname');
-        const nombre = document.getElementById('firstname');
-        const valorHora = document.getElementById('valuePerHour');
-        const horasDia = document.getElementById('hoursPerDay');
+        const apellido = $('#surname');
+        const nombre = $('#firstname');
+        const valorHora = $('#valuePerHour');
+        const horasDia = $('#hoursPerDay');
 
-        const surname = apellido.value;
-        const firstname = nombre.value;
-        const valuePerHour = valorHora.value;
-        const hoursPerDay = horasDia.value;
+        const surname = apellido[0].value;
+        const firstname = nombre[0].value;
+        const valuePerHour = valorHora[0].value;
+        const hoursPerDay = horasDia[0].value;
 
         const colaboradorNuevo = { id: id, surname: surname, firstname: firstname, valuePerHour: valuePerHour, hoursPerDay: hoursPerDay };
 
         coworker.createItem(colaboradorNuevo);
 
-        formCoworker.reset();
+        $('#coworker').hide();
 
     });
 
 });
+//fin de bloque para dar de alta un colaborador
 
-const delete_task = document.getElementById('deleteTask');
-
-delete_task.addEventListener('click', function () {
+//bloque para eliminar una tarea
+$('#deleteTask').on('click', function (e) {
 
     let data = [];
 
     data = fillSelector(data, Task);
 
-    document.getElementById('modalForm').style.display = 'block';
+    $('#modalForm').show();
 
-    const selectTask = document.getElementById('theForm');
+    var $selectTask = $('#theForm');
 
-    theForm.innerHTML = `<h2>Eliminacion de Tarea</h2>
+    $selectTask.append(`<h2>Eliminacion de Tarea</h2>
                         <select id="selector">
-                        </select>`
+                        </select>`);
 
-    const inSelect = document.getElementById('selector');
+    var $inSelect = $("#selector");
 
-    renderSelector(data,inSelect);    
+    renderSelector(data, $inSelect);
 
-    const theButton = document.createElement('div');
-
-    theButton.innerHTML = `<button type="submit" id="boton" class="btn btn-oval btn-primary">
+    $selectTask.append(`<div>
+                            <button type="submit" id="boton" class="btn btn-oval btn-primary">
                                 Enviar
                             </button>
-                           </div>`
+                        </div>`)
 
-    selectTask.appendChild(theButton);
+    $selectTask.on('submit', () => {
 
-    selectTask.addEventListener('submit', () => {
+        var $idTask = $('#selector');
 
-        const idTask = document.getElementById('selector');
+        const theId = $idTask[0].value.substr(0, 4);
 
-        const theId = idTask.value.substr(0, 4);
+        const rowId = "F" + $idTask[0].value.substr(2, 2);
+
+        alert(rowId);
 
         task.deleteItem(theId);
 
-        document.getElementById(theId).remove();
+        $("#" + rowId).remove();
 
-        selectTask.reset();
+        $('#modalForm').hide();
     })
 
 });
+//fin bloque para eliminar una tarea
 
+//bloque para dar de alta una tarea
 const new_task = document.getElementById('newTask');
 
 new_task.addEventListener('click', function () {
+    let navbardrop02 = document.getElementById('navbardrop02');
+    navbardrop02On = false;
+    navbardrop02.disabled = true;
     let tasks = task.findAllItems();
     let theId = [];
     let i = tasks.length;
@@ -335,11 +360,10 @@ new_task.addEventListener('click', function () {
     } else {
         iSearch = i + '';
     }
-    theId[i] = "I" + iSearch.padStart(4, '0');
-    var theTaskContainer = document.getElementById('tasks-table');
-    var theTaskRow = document.createElement('tr');
-    theTaskRow.setAttribute('id', theId[i]);
-    theTaskRow.innerHTML = `<td>
+    theId[i] = "T" + iSearch.padStart(3, '0');
+    var $theTaskContainer = $("#tasks-table");
+    $theTaskContainer.append(`<tr id=${theId[i]}>
+    <td>
         <input type='hidden' id=${theId[i] + "C0"}  value='${theId[i]}'>
         <p>
             ${theId[i]}
@@ -349,7 +373,7 @@ new_task.addEventListener('click', function () {
         <input id=${theId[i] + "C1"} autocomplete="off" type="text">
     </td>
     <td>
-        <select class="js-example-basic-single" name="coworker option" id="selector"}>
+        <select class="js-example-basic-single" name="coworker option" id="selector">
         </select>
     </td>
     <td>
@@ -366,19 +390,18 @@ new_task.addEventListener('click', function () {
     </td>
     <td>
         <button id=${theId[i] + "C6"} class="btn btn-oval btn-xs btn-secondary ph-sm mt-sm"></em>Cancel</button>
-    </td>`;
-
-    theTaskContainer.appendChild(theTaskRow);
+    </td>
+    </tr>`);
 
     let data = [];
 
     data = fillSelector(data, Coworker);
 
-    const inSelect = document.getElementById('selector');
+    var $inSelect = $("#selector");
 
-    renderSelector(data,inSelect);    
+    renderSelector(data, $inSelect);
 
-    document.getElementById(theId[i] + "C5").addEventListener('click', function () {
+    $("#" + theId[i] + "C5").on('click', function (e) {
 
         const identificacion = document.getElementById(theId[i] + "C0");
         const descripcion = document.getElementById(theId[i] + "C1");
@@ -396,23 +419,32 @@ new_task.addEventListener('click', function () {
 
         task.createItem(tareaNueva);
 
-        theTaskContainer.innerHTML = "";
+        $("#" + theId[i]).remove();
 
         const tasks = task.findAllItems();
 
         const tasksTable = "tasks-table"
-        
+
         const letra = "F"
-        
+
+        navbardrop02On = true;
+
+        navbardrop02.disabled = false;
+
         renderList(tasksTable, tasks, letra);
+
 
     });
 
-    document.getElementById(theId[i] + "C6").addEventListener('click', function () {
+    $("#" + theId[i] + "C6").on('click', function (e) {
 
-        document.getElementById(theId[i]).remove();
+        $("#" + theId[i]).remove();
+
+        navbardrop02On = true;
+
+        navbardrop02.disabled = false;
 
     });
 
 });
-
+//fin bloque para dar de alta una tarea

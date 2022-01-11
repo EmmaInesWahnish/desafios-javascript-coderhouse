@@ -1,6 +1,6 @@
-export const renderList = (taskId, tasks, letter) => {
+export const renderListCoworker = (taskId, tasks, letter) => {
 
-    const $table = $("#" + taskId);
+    const tasksContainer = document.getElementById(taskId)
 
     let i = 0;
 
@@ -29,38 +29,35 @@ export const renderList = (taskId, tasks, letter) => {
 
         }
 
-        //limpiar antes de volver a renderizar
-        var $taskContainer = $("#" + theId);
-
-        $taskContainer.remove();
-
         i++;
 
-        //renderizar
-        $table.append(`<tr id=${theId}>
-                                <td>
+        const itemTask = document.createElement('tr');
+
+        itemTask.innerHTML = `<td>
                                     <p id=${colId[0]}> 
                                         ${item.id} 
                                     </p>
                                 <td>
                                     <p id= ${colId[1]}> 
-                                        ${item.description} 
+                                        ${item.surname} 
                                     </p>
                                 </td>
                                 <td>
                                     <p id=${colId[2]}> 
-                                        ${item.assignedTo} 
+                                        ${item.firstname} 
                                     </p>
                                 </td>
                                 <td>
                                     <p id=${colId[3]}> 
-                                        ${item.state} 
+                                        ${item.valuePerHour} 
                                     </p>
                                 <td>
                                     <p id=${colId[4]}> 
-                                        ${item.workDays} 
+                                        ${item.hoursPerDay} 
                                     </p>
-                                </td>`)
+                                </td>`
+
+        tasksContainer.appendChild(itemTask)
     }
 
 }

@@ -1,6 +1,6 @@
 export const renderList = (taskId, tasks, letter) => {
 
-    const $table = $("#" + taskId);
+    const tasksContainer = document.getElementById(taskId)
 
     let i = 0;
 
@@ -29,16 +29,13 @@ export const renderList = (taskId, tasks, letter) => {
 
         }
 
-        //limpiar antes de volver a renderizar
-        var $taskContainer = $("#" + theId);
-
-        $taskContainer.remove();
-
         i++;
 
-        //renderizar
-        $table.append(`<tr id=${theId}>
-                                <td>
+        const itemTask = document.createElement('tr');
+
+        itemTask.setAttribute('id', item.id)
+
+        itemTask.innerHTML = `<td>
                                     <p id=${colId[0]}> 
                                         ${item.id} 
                                     </p>
@@ -60,7 +57,9 @@ export const renderList = (taskId, tasks, letter) => {
                                     <p id=${colId[4]}> 
                                         ${item.workDays} 
                                     </p>
-                                </td>`)
+                                </td>`
+
+        tasksContainer.appendChild(itemTask)
     }
 
 }
