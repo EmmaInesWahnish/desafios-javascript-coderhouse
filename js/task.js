@@ -28,8 +28,8 @@ export class Task {
             const index = this.lista.indexOf(item);
             this.lista[index].workDays = diasTrabajo;
             localStorage.setItem('task', JSON.stringify(this.lista));
-            let donde = "F0" + index + "C04";
-            document.getElementById(donde).innerHTML = diasTrabajo
+            let donde = "#F0" + index + "C04";
+            $(donde).text(diasTrabajo);
         }
     }
 
@@ -38,8 +38,8 @@ export class Task {
         const index = this.lista.indexOf(item);
         this.lista[index].assignedTo = colaborador;
         localStorage.setItem('task', JSON.stringify(this.lista));
-        let donde = "F0" + index + "C02";
-        document.getElementById(donde).innerHTML = colaborador;
+        let donde = "#F0" + index + "C02";
+        $(donde).text(colaborador);
     }
 
 
@@ -48,8 +48,8 @@ export class Task {
         const index = this.lista.indexOf(item);
         this.lista[index].state = "Si";
         localStorage.setItem('task', JSON.stringify(this.lista));
-        let estado = "F0" + index + "C03";
-        document.getElementById(estado).innerHTML = "Si"
+        let donde = "#F0" + index + "C03";
+        $(donde).text('Si');
     }
 
     deleteItem(itemId) {

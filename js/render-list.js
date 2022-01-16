@@ -1,4 +1,4 @@
-export const renderList = (taskId, tasks, letter) => {
+export const renderList = (taskId, tasks, letter, arrayOfRowIds) => {
 
     const $table = $("#" + taskId);
 
@@ -61,6 +61,26 @@ export const renderList = (taskId, tasks, letter) => {
                                         ${item.workDays} 
                                     </p>
                                 </td>`)
-    }
 
+        $("#" + theId).on('click', function (e) {
+
+            if ($("#" + theId).hasClass("selected")) {
+                $("#" + theId).removeClass("selected");
+                let rowId = -1;
+                for (let i =0; i < arrayOfRowIds.length; i++) {
+                    if (arrayOfRowIds[i] == theId) {
+                        rowId = i;
+                    }
+                }
+                if (rowId != -1) {
+                    arrayOfRowIds.splice(rowId,1); 
+                }
+
+            } else {
+                $("#" + theId).addClass("selected");
+                arrayOfRowIds.push(theId);
+            }
+
+        });
+    }
 }

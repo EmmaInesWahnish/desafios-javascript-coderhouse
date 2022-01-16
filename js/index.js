@@ -10,57 +10,48 @@ import { fillSelector } from "./fill-selector.js";
 
 import { renderSelector } from "./render-selector.js";
 
-//modulo principal
+//JSON estaticos donde estan los datos para la carga inicial
+var URL_JSON_TAREAS = '../db/tareas.json';
+const URL_JSON_COLABORADORES = '../db/colaboradores.json';
+
 localStorage.clear();
 
-//variable indicadora dropdown de plan habilitado o deshabilitado
+//variables globales
 let navbardrop02On = true;
+let selectedTasks = [];
 
-//datos iniciales que se cargaran en local storage
-const tareas = [
-    { id: "T000", description: "Relevamiento de requerimientos", assignedTo: "W000", state: "No", workDays: 2 },
-    { id: "T001", description: "Diagrama de funcionalidad", assignedTo: "W001", state: "No", workDays: 5 },
-    { id: "T002", description: "Validacion del diagrama", assignedTo: "W000", state: "No", workDays: 1 },
-    { id: "T003", description: "Desarrollo de la aplicacion", assignedTo: "W003", state: "No", workDays: 15 },
-    { id: "T004", description: "Testing de la aplicacion", assignedTo: "W002", state: "No", workDays: 5 },
-    { id: "T005", description: "Puesta en produccion", assignedTo: "W001", state: "No", workDays: 2 },
-]
-
-const colaboradores = [
-    { id: "W000", surname: "Figueroa", firstname: "Hernan", valuePerHour: 20, hoursPerDay: 4 },
-    { id: "W001", surname: "Arias", firstname: "Eduardo", valuePerHour: 18, hoursPerDay: 5 },
-    { id: "W002", surname: "Perez", firstname: "Valeria", valuePerHour: 22, hoursPerDay: 6 },
-    { id: "W003", surname: "Rodriguez", firstname: "Fernando", valuePerHour: 19, hoursPerDay: 6 },
-    { id: "W004", surname: "Zucker", firstname: "Patricia", valuePerHour: 20, hoursPerDay: 5 },
-    { id: "W005", surname: "Wella", firstname: "German", valuePerHour: 20, hoursPerDay: 5 },
-]
+//datos iniciales se cargan en locaStorage
 
 //Inicio carga de tareas 
 const task = new Task();
-
-let element = {};
-
-let elem = {};
-
-for (element of tareas) {
-    task.createItem(element);
-}
-
-const tasks = task.findAllItems();
-
-const tasksTable = "tasks-table";
-
-const letra = "F";
-
-renderList(tasksTable, tasks, letra);
+let tareas = [];
+$.getJSON(URL_JSON_TAREAS, function (response, status) {
+    if (status === "success") {
+        tareas = response;
+        let element = {};
+        for (element of tareas) {
+            task.createItem(element);
+        }
+        const tasks = task.findAllItems();
+        const tasksTable = "tasks-table";
+        const letra = "F";
+        renderList(tasksTable, tasks, letra, selectedTasks);
+    };
+});
 //fin carga de tareas
 
 //Inicio carga de colaboradores
 const coworker = new Coworker;
-
-for (elem of colaboradores) {
-    coworker.createItem(elem);
-}
+let colaboradores = [];
+$.getJSON(URL_JSON_COLABORADORES, function (response, status) {
+    if (status === "success") {
+        colaboradores = response;
+        let elem = {};
+        for (elem of colaboradores) {
+            coworker.createItem(elem);
+        }
+    };
+});
 //fin carga de colaboradores
 
 //bloque para calcular el avance del plan
@@ -68,6 +59,7 @@ const $porcentaje = $('#percentComplete')
 
 $porcentaje.on('click', function () {
     let resultado = Number(task.tasksPercentCompletion()) + " %";
+    $('#avance').empty();
     $("#avance").append(resultado);
 })
 //Fin bloque para calcular el avance del plan
@@ -87,86 +79,38 @@ $costo.on('click', function () {
         }
     });
     let resultado = "U$S " + costoDelPlan;
-    $("#costo").append(resultado);
+    $('#costo').empty();
+    $('#costo').append(resultado);
 });
 //fin bloque para calcular costo del plan
 
-//bloque para modificar el estado de una tarea
-const $status_tarea = $('#changeTaskStatus');
-
-$status_tarea.on('click', function () {
-    let anotherTask = "S";
-    do {
-        let theTask = '';
-        while (!theTask || Number(theTask) || theTask == '') {
-            theTask = prompt("Ingrese Id de tarea a marcar como finalizada")
-        }
-        task.completeTask(theTask);
-        anotherTask = prompt("Ingrese la letra N cuando no desee finalizar mas tareas");
-
-    } while (anotherTask != "N");
-
-});
-//fin bloque para modificar el estado de una tarea
-
-//bloque para modificar la cantidad de dias de una tarea
-const $modify_plan = $('#modifyPlan');
-
-$modify_plan.on('click', function () {
-    let anotherTask = "S";
-    do {
-        let theTask = '';
-        while (!theTask || Number(theTask) || theTask == '') {
-            theTask = prompt("Ingrese Id de tarea a modificar")
-        }
-        let dias = +prompt("Por favor ingrese la cantidad de dias trabajados");
-        while (!dias || Number(dias) < 0) {
-            alert("La cantidad de días debe ser un numero positivo");
-            dias = prompt("Por favor ingrese la cantidad de dias trabajados");
-        }
-        task.updateWorkDays(theTask, dias)
-        anotherTask = prompt("Ingrese la letra N cuando no desee modificar mas tareas");
-
-    } while (anotherTask != "N");
-
-});
-//fin bloque para modificar la cantidad de dias de una tarea
-
-//bloque para modificar el colaborador de una tarea
-const $modify_coworker = $('#modifyCoworkerInPLan');
-
-$modify_coworker.on('click', function () {
-    let anotherTask = "S";
-    do {
-        let theTask = '';
-        while (!theTask || Number(theTask) || theTask == '') {
-            theTask = prompt("Ingrese Id de tarea a modificar")
-        }
-
-        let idColaborador = prompt("Por favor ingrese el Id del responsable asignado");
-        while (!idColaborador || Number(idColaborador) || idColaborador == '') {
-            alert("Es obligtorio ingresar un Id no nulo");
-            idColaborador = prompt("Por favor ingrese el Id del responsable asignado");
-        }
-
-        task.updateCoworker(theTask, idColaborador);
-        anotherTask = prompt("Ingrese la letra N cuando no desee modificar mas tareas");
-
-    } while (anotherTask != "N");
-
-});
-//fin bloque para modificar colaborador de una tarea
 
 //bloque para listar colaboradores
 const $list_coworkers = $('#listCoworkers');
 
 $list_coworkers.on('click', function () {
 
+    var $span = $("#close_generic");
+    var $modal = $("#modalForm");
+    $modal.show();
+    $span.on('click', function (e) {
+        $('#pleaseRemove').remove();
+        $modal.hide();
+    });
+
+    window.onclick = function (event) {
+        if (event.target == $modal) {
+            $('#pleaseRemove').remove();
+            $modal.hide();
+        }
+    }
+
     $('#modalForm').show();
 
     const $selectCoworker = $("#theForm");
 
-    $selectCoworker.append(`<h2>Lista de colaboradores</h2>
+    $selectCoworker.append(`<div id="pleaseRemove">
+                    <h2>Lista de colaboradores</h2>
                     <table id="coworkers-table" class="table table-bordered">
                         <tr>
                             <th>Id</th>
@@ -175,7 +119,8 @@ $list_coworkers.on('click', function () {
                             <th>Valor hora</th>
                             <th>Horas diarias</th>
                         </tr>
-                    </table>`);
+                    </table>
+                </div>`);
 
     const coworkers = coworker.findAllItems();
 
@@ -197,24 +142,43 @@ $delete_coworker.on('click', function () {
 
     data = fillSelector(data, Coworker);
 
+    var $span = $("#close_generic");
+    var $modal = $("#modalForm");
+    $modal.show();
+    $span.on('click', function (e) {
+        $('#pleaseRemove').remove();
+        $("#submitButton").remove();
+        $modal.hide();
+    });
+
+    window.onclick = function (event) {
+        if (event.target == $modal) {
+            $('#pleaseRemove').remove();
+            $("#submitButton").remove();
+            $modal.hide();
+        }
+    }
+
     $('#modalForm').show();
 
     const $selectCoworker = $('#theForm');
 
-    $selectCoworker.append(`<h2>Baja de colaborador</h2>
+    $selectCoworker.append(`<div id="pleaseRemove">
+                        <h2>Baja de colaborador</h2>
                         <select id="selector">
-                        </select>`);
+                        </select>
+                    </div>`);
 
     var $inSelect = $("#selector");
 
     renderSelector(data, $inSelect);
 
-    $selectCoworker.append(`<div>
+    $selectCoworker.append(`<div id="submitButton">
                                 <p id="isAssigned" class="isRed"><p>
                                     <button type="submit" id="boton" class="btn btn-oval btn-primary">
                                         Enviar
                                     </button>
-                           </div>`);
+                            </div>`);
 
     $selectCoworker.on('submit', () => {
 
@@ -225,6 +189,8 @@ $delete_coworker.on('click', function () {
         const myTasks = task.findAllItems();
 
         let coworkerAssigned = false;
+
+        let element = '';
 
         for (element of myTasks) {
             if (theId == element.assignedTo) {
@@ -241,6 +207,11 @@ $delete_coworker.on('click', function () {
         } else {
             coworker.deleteItem(theId);
         }
+        $('#pleaseRemove').remove();
+
+        $("#submitButton").remove();
+
+        $span.trigger('click');
 
         $('#modalForm').hide();
     })
@@ -272,8 +243,17 @@ $new_coworker.on('click', function () {
             alert("Id overflow***");
     }
     let id = theId;
-
-    $('#coworker').show();
+    var $span = $("#close_coworker");
+    var $modal = $("#coworker");
+    $modal.show();
+    $span.on('click', function () {
+        $modal.hide();
+    })
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            $modal.hide();
+        }
+    }
 
     $('#coworker').on('submit', function () {
 
@@ -304,6 +284,23 @@ $('#deleteTask').on('click', function (e) {
     let data = [];
 
     data = fillSelector(data, Task);
+
+    var $span = $("#close_generic");
+    var $modal = $("#modalForm");
+    $modal.show();
+    $span.on('click', function (e) {
+        $('#pleaseRemove').remove();
+        $("#submitButton").remove();
+        $modal.hide();
+    });
+
+    window.onclick = function (event) {
+        if (event.target == $modal) {
+            $('#pleaseRemove').remove();
+            $("#submitButton").remove();
+            $modal.hide();
+        }
+    }
 
     $('#modalForm').show();
 
@@ -337,6 +334,10 @@ $('#deleteTask').on('click', function (e) {
 
         $("#" + rowId).remove();
 
+        $('#pleaseRemove').remove();
+
+        $("#submitButton").remove();
+
         $('#modalForm').hide();
     })
 
@@ -344,10 +345,8 @@ $('#deleteTask').on('click', function (e) {
 //fin bloque para eliminar una tarea
 
 //bloque para dar de alta una tarea
-const new_task = document.getElementById('newTask');
-
-new_task.addEventListener('click', function () {
-    let navbardrop02 = document.getElementById('navbardrop02');
+$('#newTask').on('click', function () {
+    let navbardrop02 = $('#navbardrop02');
     navbardrop02On = false;
     navbardrop02.disabled = true;
     let tasks = task.findAllItems();
@@ -431,8 +430,7 @@ new_task.addEventListener('click', function () {
 
         navbardrop02.disabled = false;
 
-        renderList(tasksTable, tasks, letra);
-
+        renderList(tasksTable, tasks, letra, selectedTasks);
 
     });
 
@@ -448,3 +446,155 @@ new_task.addEventListener('click', function () {
 
 });
 //fin bloque para dar de alta una tarea
+
+//Modificacion de colaborador en filas seleccionadas
+$('#modifySelected').on('click', function () {
+    let data = [];
+
+    data = fillSelector(data, Coworker);
+
+    var $span = $("#close_generic");
+    var $modal = $("#modalForm");
+    $modal.show();
+    $span.on('click', function (e) {
+        $('#pleaseRemove').remove();
+        $("#submitButton").remove();
+        $modal.hide();
+    });
+
+    window.onclick = function (event) {
+        if (event.target == $modal) {
+            $('#pleaseRemove').remove();
+            $("#submitButton").remove();
+            $modal.hide();
+        }
+    }
+
+    $('#modalForm').show();
+
+    const $selectCoworker = $('#theForm');
+
+    $selectCoworker.append(`<h2>Modificacion de colaborador</h2>
+                        <select id="selector">
+                        </select>`);
+
+    var $inSelect = $("#selector");
+
+    renderSelector(data, $inSelect);
+
+    $selectCoworker.append(`<div>
+                            <button type="submit" id="boton" class="btn btn-oval btn-primary">
+                                Enviar
+                            </button>
+                        </div>`)
+
+    $selectCoworker.on('submit', () => {
+
+        let element = '';
+
+        let idColaborador = $('#selector').val();
+
+        for (element of selectedTasks) {
+
+            let theTask = "T0" + element.substring(1);
+
+            task.updateCoworker(theTask, idColaborador);
+
+            $("#" + element).removeClass("selected");
+
+        }
+        $('#pleaseRemove').remove();
+
+        $("#submitButton").remove();
+
+        $('#modalForm').hide();
+    })
+
+});
+//Fin modificacion colaborador en filas seleccionadas
+
+//Modificacion tarea finalizada en filas seleccionadas
+$('#changeTaskStatus').on('click', function () {
+
+    let element = '';
+
+    for (element of selectedTasks) {
+
+        let theTask = "T0" + element.substring(1);
+
+        console.log(theTask);
+
+        task.completeTask(theTask);
+
+        $("#" + element).removeClass("selected");
+
+    }
+
+})
+//Fin modificacion tarea finalizada en filas seleccionadas
+
+//Modificacion de dias trabajados
+$('#modifyDays').on('click', function () {
+
+    var $span = $("#close_generic");
+    var $modal = $("#modalForm");
+    $modal.show();
+    $span.on('click', function (e) {
+        $('#pleaseRemove').remove();
+        $("#submitButton").remove();
+        $modal.hide();
+    });
+
+    window.onclick = function (event) {
+        if (event.target == $modal) {
+            $('#pleaseRemove').remove();
+            $("#submitButton").remove();
+            $modal.hide();
+        }
+    }
+
+    $('#modalForm').show();
+
+    const $changeDays = $('#theForm');
+
+    $changeDays.append(`<h2>Modificacion de dias de trabajo</h2>
+                        <div id="mod-dias">
+                            <label for="cantidadDias">Cantidad de dias</label>
+                            <input id="cantidadDias" autocomplete="off" type="number">
+                        </div>`);
+
+    $changeDays.append(`<div>
+                            <button type="submit" id="boton" class="btn btn-oval btn-primary">
+                                Enviar
+                            </button>
+                        </div>`)
+
+    $changeDays.on('submit', () => {
+
+        let element = '';
+
+        let dias = $('#cantidadDias').val();
+
+        if (!dias || Number(dias) < 0) {
+            alert("La cantidad de dias debe ser un numero positivo")
+        } else {
+
+            for (element of selectedTasks) {
+
+                let theTask = "T0" + element.substring(1);
+
+                task.updateWorkDays(theTask, dias);
+
+                $("#" + element).removeClass("selected");
+
+            }
+        }
+        $('#pleaseRemove').remove();
+
+        $("#submitButton").remove();
+
+        $('#modalForm').hide();
+    })
+
+});
+//Fin modificacion colaborador en filas seleccionadas

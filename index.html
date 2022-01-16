@@ -17,6 +17,75 @@
     <link rel="stylesheet" href="../css/main.css" />
     <!--Utilización de Google fonts Open Sans-->
 </head>
+<style>
+    .select2-selection__rendered {
+        line-height: auto !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: auto !important;
+    }
+
+    .select2-selection__arrow {
+        height: auto !important;
+    }
+
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: absolute;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding: 1em;
+        /* Location of the box */
+        left: 20;
+        top: 0;
+        width: auto;
+        /* Full width */
+        height: auto;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5px;
+        padding: auto;
+        border: 3px solid #2D85E5;
+        width: 100%;
+        font-size: 1em;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .overClass {
+        overflow: scroll;
+    }
+
+    .selected {
+        background-color: lightblue;
+    }
+</style>
 
 <body>
     <div class="grid-stat">
@@ -49,10 +118,10 @@
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="javascript:void(0);" id="newTask">Alta de Tarea</a>
-                            <a class="dropdown-item" href="javascript:void(0);" id="modifyPlan">Modificacion Dias
+                            <a class="dropdown-item" href="javascript:void(0);" id="modifyDays">Modificacion Dias
                                 trabajo</a>
-                            <a class="dropdown-item" href="javascript:void(0);" id="modifyCoworkerInPLan">Modificacion de
-                                Colaborador</a>
+                            <a class="dropdown-item" href="javascript:void(0);" id="modifySelected">Modificacion de
+                                colaborador</a>
                             <a class="dropdown-item" href="javascript:void(0);" id="changeTaskStatus">Finalizacion de
                                 Tarea</a>
                             <a class="dropdown-item" href="javascript:void(0);" id="deleteTask">Eliminacion de
@@ -97,7 +166,7 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table id="tasks-table" class="showes table table-bordered">
+            <table id="tasks-table" class="table table-bordered">
                 <tr>
                     <th>Identificacion</th>
                     <th>Descripcion</th>
@@ -108,28 +177,27 @@
             </table>
         </div>
         <!--Modal alta coworker-->
-        <div id="coworker" class="w3-modal w3-transparent w3-auto w3-text-indigo">
-            <div class="w3-modal-content">
+        <div id="coworker" class="modal">
+            <div class="modal-content">
                 <div class="modal-container">
-                    <span onclick="document.getElementById('coworker').style.display='none'"
-                        class="w3-button w3-display-topright">&times;</span>
+                    <span id="close_coworker" class="close">&times;</span>
                     <div class="container">
-                        <form class="showes" class="form" action="javascript:void(0);" id="formCoworker">
-                            <div class="form__item" class="w3-input">
+                        <form class="form" action="javascript:void(0);" id="formCoworker">
+                            <div class="form__item">
                                 <label for="surname">Apellido</label>
-                                <input type="text" id="surname" name="surname" class="form__item__input" />
+                                <input type="text" id="surname" name="surname" class="form-control" />
                             </div>
-                            <div class="form__item" class="w3-input">
+                            <div class="form__item">
                                 <label for="firstname">Nombre</label>
-                                <input type="text" id="firstname" name="firstname" class="form__item__input" />
+                                <input type="text" id="firstname" name="firstname" class="form-control" />
                             </div>
-                            <div class="form__item" class="w3-input">
+                            <div class="form__item">
                                 <label for="valuePerHour">Valor Hora</label>
-                                <input type="number" id="valuePerHour" name="valuePerHour" class="form__item__input" />
+                                <input type="number" id="valuePerHour" name="valuePerHour" class="form-control" />
                             </div>
-                            <div class="form__item" class="w3-input">
+                            <div class="form__item">
                                 <label for="hoursPerDay">Horas Diarias</label>
-                                <input type="text" id="hoursPerDay" name="hoursPerDay" class="form__item__input" />
+                                <input type="text" id="hoursPerDay" name="hoursPerDay" class="form-control" />
                             </div>
                             <div class="form__botones">
                                 <button type="submit" id="boton" class="btn btn-primary">
@@ -142,15 +210,12 @@
             </div>
         </div>
         <!--Modal generico-->
-        <div id="modalForm" class="w3-modal w3-transparent w3-auto w3-text-indigo">
-            <div class="w3-modal-content">
-                <div class="modal-container">
-                    <span onclick="document.getElementById('modalForm').style.display='none'"
-                        class="w3-button w3-display-topright">&times;</span>
-                    <div class="container">
-                        <form class="showes" class="form" action="javascript:void(0);" id="theForm">
-                        </form>
-                    </div>
+        <div id="modalForm" class="modal">
+            <div class="modal-content">
+                <span id="close_generic" class="close">&times;</span>
+                <div class="container">
+                    <form class="showes" class="form" action="javascript:void(0);" id="theForm">
+                    </form>
                 </div>
             </div>
         </div>
@@ -167,6 +232,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
         crossorigin="anonymous"></script>

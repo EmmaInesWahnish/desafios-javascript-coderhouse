@@ -1,0 +1,8 @@
+[
+    { "id": "T000", "description": "Relevamiento de requerimientos", "assignedTo": "W000", "state": "No", "workDays": 2 },
+    { "id": "T001", "description": "Diagrama de funcionalidad", "assignedTo": "W001", "state": "No", "workDays": 5 },
+    { "id": "T002", "description": "Validacion del diagrama", "assignedTo": "W000", "state": "No", "workDays": 1 },
+    { "id": "T003", "description": "Desarrollo de la aplicacion", "assignedTo": "W003", "state": "No", "workDays": 15 },
+    { "id": "T004", "description": "Testing de la aplicacion", "assignedTo": "W002", "state": "No", "workDays": 5 },
+    { "id": "T005", "description": "Puesta en produccion", "assignedTo": "W001", "state": "No", "workDays": 2 }
+]
