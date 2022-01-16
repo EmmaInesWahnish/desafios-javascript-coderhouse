@@ -10,6 +10,8 @@ import { fillSelector } from "./fill-selector.js";
 
 import { renderSelector } from "./render-selector.js";
 
+import { removeSelection } from "./remove-one-row-selection.js"
+
 //JSON estaticos donde estan los datos para la carga inicial
 var URL_JSON_TAREAS = '../db/tareas.json';
 const URL_JSON_COLABORADORES = '../db/colaboradores.json';
@@ -306,15 +308,17 @@ $('#deleteTask').on('click', function (e) {
 
     var $selectTask = $('#theForm');
 
-    $selectTask.append(`<h2>Eliminacion de Tarea</h2>
+    $selectTask.append(`<div id="pleaseRemove">
+                        <h2>Eliminacion de Tarea</h2>
                         <select id="selector">
-                        </select>`);
+                        </select>
+                    </div>`);
 
     var $inSelect = $("#selector");
 
     renderSelector(data, $inSelect);
 
-    $selectTask.append(`<div>
+    $selectTask.append(`<div id="submitButton">
                             <button type="submit" id="boton" class="btn btn-oval btn-primary">
                                 Enviar
                             </button>
@@ -474,15 +478,17 @@ $('#modifySelected').on('click', function () {
 
     const $selectCoworker = $('#theForm');
 
-    $selectCoworker.append(`<h2>Modificacion de colaborador</h2>
+    $selectCoworker.append(`<div id="pleaseRemove"
+                        <h2>Modificacion de colaborador</h2>
                         <select id="selector">
-                        </select>`);
+                        </select>
+                    </div>`);
 
     var $inSelect = $("#selector");
 
     renderSelector(data, $inSelect);
 
-    $selectCoworker.append(`<div>
+    $selectCoworker.append(`<div id="submitButton">
                             <button type="submit" id="boton" class="btn btn-oval btn-primary">
                                 Enviar
                             </button>
@@ -499,8 +505,6 @@ $('#modifySelected').on('click', function () {
             let theTask = "T0" + element.substring(1);
 
             task.updateCoworker(theTask, idColaborador);
-
-            $("#" + element).removeClass("selected");
 
         }
         $('#pleaseRemove').remove();
@@ -525,8 +529,6 @@ $('#changeTaskStatus').on('click', function () {
         console.log(theTask);
 
         task.completeTask(theTask);
-
-        $("#" + element).removeClass("selected");
 
     }
 
@@ -557,13 +559,15 @@ $('#modifyDays').on('click', function () {
 
     const $changeDays = $('#theForm');
 
-    $changeDays.append(`<h2>Modificacion de dias de trabajo</h2>
+    $changeDays.append(`<div id="pleaseRemove"
+                        <h2>Modificacion de dias de trabajo</h2>
                         <div id="mod-dias">
                             <label for="cantidadDias">Cantidad de dias</label>
                             <input id="cantidadDias" autocomplete="off" type="number">
-                        </div>`);
+                        </div>
+                    </div>`);
 
-    $changeDays.append(`<div>
+    $changeDays.append(`<div id="submitButton">
                             <button type="submit" id="boton" class="btn btn-oval btn-primary">
                                 Enviar
                             </button>
@@ -585,8 +589,6 @@ $('#modifyDays').on('click', function () {
 
                 task.updateWorkDays(theTask, dias);
 
-                $("#" + element).removeClass("selected");
-
             }
         }
         $('#pleaseRemove').remove();
@@ -597,4 +599,4 @@ $('#modifyDays').on('click', function () {
     })
 
 });
-//Fin modificacion colaborador en filas seleccionadas
+//Fin modificacion dias trabajados
