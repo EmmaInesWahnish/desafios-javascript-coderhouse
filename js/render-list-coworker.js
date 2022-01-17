@@ -36,6 +36,7 @@ export const renderListCoworker = (taskId, tasks, letter) => {
                                     <p id=${colId[0]}> 
                                         ${item.id} 
                                     </p>
+                                </td>    
                                 <td>
                                     <p id= ${colId[1]}> 
                                         ${item.surname} 
@@ -50,6 +51,7 @@ export const renderListCoworker = (taskId, tasks, letter) => {
                                     <p id=${colId[3]}> 
                                         ${item.valuePerHour} 
                                     </p>
+                                </td>    
                                 <td>
                                     <p id=${colId[4]}> 
                                         ${item.hoursPerDay} 
