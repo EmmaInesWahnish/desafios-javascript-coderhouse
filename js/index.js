@@ -6,6 +6,8 @@ import { renderList } from "./render-list.js";
 
 import { renderListCoworker } from "./render-list-coworker.js";
 
+import { renderListBudget } from "./render-list-budget.js";
+
 import { fillSelector } from "./fill-selector.js";
 
 import { renderSelector } from "./render-selector.js";
@@ -13,14 +15,15 @@ import { renderSelector } from "./render-selector.js";
 import { removeSelection } from "./remove-one-row-selection.js"
 
 //JSON estaticos donde estan los datos para la carga inicial
-var URL_JSON_TAREAS = '../db/tareas.json';
+const URL_JSON_TAREAS = '../db/tareas.json';
 const URL_JSON_COLABORADORES = '../db/colaboradores.json';
-
+const URL_FOR_POST = 'https://jsonplaceholder.typicode.com/posts';
 localStorage.clear();
 
 //variables globales
 let navbardrop02On = true;
 let selectedTasks = [];
+let costoDelPlan = 0;
 
 //datos iniciales se cargan en locaStorage
 
@@ -85,7 +88,6 @@ $costo.on('click', function () {
     $('#costo').append(resultado);
 });
 //fin bloque para calcular costo del plan
-
 
 //bloque para listar colaboradores
 const $list_coworkers = $('#listCoworkers');
@@ -160,8 +162,6 @@ $delete_coworker.on('click', function () {
             $modal.hide();
         }
     }
-
-    $('#modalForm').show();
 
     const $selectCoworker = $('#theForm');
 
@@ -303,8 +303,6 @@ $('#deleteTask').on('click', function (e) {
             $modal.hide();
         }
     }
-
-    $('#modalForm').show();
 
     var $selectTask = $('#theForm');
 
@@ -474,8 +472,6 @@ $('#modifySelected').on('click', function () {
         }
     }
 
-    $('#modalForm').show();
-
     const $selectCoworker = $('#theForm');
 
     $selectCoworker.append(`<div id="pleaseRemove"
@@ -538,10 +534,12 @@ $('#changeTaskStatus').on('click', function () {
 //Modificacion de dias trabajados
 $('#modifyDays').on('click', function () {
 
-    var $span = $("#close_generic");
-    var $modal = $("#modalForm");
+    var $span = $("#close_days");
+    var $modal = $("#modalFormDias");
     $modal.show();
     $span.on('click', function (e) {
+        $('#cantidadDias').remove();
+        $("#mod-dias").remove();
         $('#pleaseRemove').remove();
         $("#submitButton").remove();
         $modal.hide();
@@ -549,15 +547,15 @@ $('#modifyDays').on('click', function () {
 
     window.onclick = function (event) {
         if (event.target == $modal) {
+            $('#cantidadDias').remove();
+            $("#mod-dias").remove();
             $('#pleaseRemove').remove();
             $("#submitButton").remove();
             $modal.hide();
         }
     }
 
-    $('#modalForm').show();
-
-    const $changeDays = $('#theForm');
+    const $changeDays = $('#daysForm');
 
     $changeDays.append(`<div id="pleaseRemove"
                         <h2>Modificacion de dias de trabajo</h2>
@@ -577,9 +575,9 @@ $('#modifyDays').on('click', function () {
 
         let element = '';
 
-        let dias = $('#cantidadDias').val();
+        let dias = Number($('#cantidadDias').val());
 
-        if (!dias || Number(dias) < 0) {
+        if (dias < 0) {
             alert("La cantidad de dias debe ser un numero positivo")
         } else {
 
@@ -591,12 +589,96 @@ $('#modifyDays').on('click', function () {
 
             }
         }
+        $('#cantidadDias').remove();
+
+        $("#mod-dias").remove();
+
         $('#pleaseRemove').remove();
 
         $("#submitButton").remove();
 
-        $('#modalForm').hide();
+        $('#modalFormDias').hide();
     })
 
 });
 //Fin modificacion dias trabajados
+
+//bloque para listar presupuesto
+const $list_budget = $('#displayBudget');
+
+$list_budget.on('click', function () {
+
+    var $span = $("#close_generic");
+    var $modal = $("#modalForm");
+    $modal.show();
+    $span.on('click', function (e) {
+        $('#pleaseRemove').remove();
+        $('#pleaseRemove2').remove();
+        $('#submitBudget').remove();
+        $modal.hide();
+    });
+
+    window.onclick = function (event) {
+        if (event.target == $modal) {
+            $('#pleaseRemove').remove();
+            $('#pleaseRemove2').remove();
+            $('#submitBudget').remove();
+            $modal.hide();
+        }
+    }
+
+    const $selectBudget = $("#theForm");
+
+    $selectBudget.append(`<div id="pleaseRemove">
+                    <h2>Presupuesto</h2>
+                    <table id="budget-table" class="table table-bordered">
+                        <tr>
+                            <th>Id</th>
+                            <th>Descripcion</th>
+                            <th>Dias de Trabajo</th>
+                            <th>Costo</th>
+                        </tr>
+                    </table>
+                </div>`);
+
+    const tasksForBudget = task.findAllItems();
+
+    let budgetTable = "budget-table";
+
+    let letter = "F";
+
+    var sendTable = renderListBudget(budgetTable, tasksForBudget, letter);
+
+    costoDelPlan = 0;
+
+    let element = 0;
+
+    for (element of sendTable) {
+        costoDelPlan = costoDelPlan + Number(element.costo);
+    }
+
+    $selectBudget.append(`<div id="pleaseRemove2">
+                            <h4>Total U$S:   ${costoDelPlan}</h4>
+                        </div>`);
+
+    $selectBudget.append(`<div id="submitBudget">
+                        <button type="submit" id="btn-budget" class="btn btn-oval btn-primary">
+                            Enviar
+                        </button>
+                    </div>`)
+
+    $selectBudget.on('submit', () => {
+        const myPost = JSON.stringify(sendTable);
+        $.ajax({
+            method: "POST",
+            url: URL_FOR_POST,
+            data: myPost,
+            success: function (response) {
+                let myResult = response;
+                console.log(myResult);
+                alert("El envio se realizo correctamente");
+            }
+        })
+    })
+});
+//Fin bloque para listar presupuesto
