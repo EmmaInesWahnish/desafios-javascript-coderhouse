@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clase 20000 Wahnish Emma Ines - JavaScript</title>
+    <!--W3 modal style-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+    <!-- CDN de Bootstrap del CSS -->
+    <!--mcss/main.cc contiene estilos-->
+    <link rel="stylesheet" href="../css/main.css" />
+    <!--Utilización de Google fonts Open Sans-->
+</head>
+<style>
+    .select2-selection__rendered {
+        line-height: auto !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: auto !important;
+    }
+
+    .select2-selection__arrow {
+        height: auto !important;
+    }
+
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: absolute;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding: 1em;
+        /* Location of the box */
+        left: 20;
+        top: 0;
+        width: auto;
+        /* Full width */
+        height: auto;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5px;
+        padding: auto;
+        border: 3px solid #2D85E5;
+        width: 100%;
+        font-size: 1em;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .overClass {
+        overflow: scroll;
+    }
+
+    .selected {
+        background-color: lightblue;
+    }
+</style>
+
+<body>
+    <div class="grid-stat">
+        <header>
+            <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+                <!-- Brand -->
+                <a class="navbar-brand" href="javascript:void(0);"><i class="fas fa-tasks"></i> Control</a>
+                <ul class="navbar-nav">
+                    <!-- Dropdown -->
+                    <li class="nav-item dropdown bg-primary">
+                        <a class="nav-link dropdown-toggle bg-primary" href="javascript:void(0);" id="navbardrop01"
+                            data-toggle="dropdown">
+                            Colaboradores
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="javascript:void(0);" id="newCoworkerForm">Alta de
+                                Colaborador</a>
+                            <a class="dropdown-item" href="javascript:void(0);" id="deleteCoworker">Baja de
+                                Colaborador</a>
+                            <a class="dropdown-item" href="javascript:void(0);" id="listCoworkers">Listado de
+                                Colaboradores</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown bg-primary">
+                        <a class="nav-link dropdown-toggle bg-primary" href="javascript:void(0);" id="navbardrop02"
+                            data-toggle="dropdown">
+                            Plan
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="javascript:void(0);" id="newTask">Alta de Tarea</a>
+                            <a class="dropdown-item" href="javascript:void(0);" id="modifyDays">Modificacion Dias
+                                trabajo</a>
+                            <a class="dropdown-item" href="javascript:void(0);" id="modifySelected">Modificacion de
+                                colaborador</a>
+                            <a class="dropdown-item" href="javascript:void(0);" id="changeTaskStatus">Finalizacion de
+                                Tarea</a>
+                            <a class="dropdown-item" href="javascript:void(0);" id="deleteTask">Eliminacion de
+                                Tarea</a>
+                        </div>
+                    </li>
+                    <li class="nav-item bg-primary">
+                        <a class="nav-link" href="javascript:void(0);" id="percentComplete">Calculo de Avance</a>
+                    </li>
+                    <li class="nav-item bg-primary">
+                        <a class="nav-link" href="javascript:void(0);" id="calculateCost">Calculo de Costo</a>
+                    </li>
+                    <li class="nav-item bg-primary">
+                        <a class="nav-link" href="javascript:void(0);" id="displayBudget">Listado de
+                            Presupuesto</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="about-container__item__info">
+            <h1 class="showes">Plan Global de Proyecto</h1>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Porcentaje de Avance</h2>
+                    <p>
+                        El porcentaje de avance se calcula teniendo en cuenta la cantidad
+                        de dias demandados por la tarea
+                    </p>
+                    <p id="avance"></p>
+                </div>
+                <div class="col-md-6">
+                    <h2>Costo Total Estimado</h2>
+                    <p>
+                        El costo del proyecto esta basado en los dias de trabajo, el valor
+                        hora del colaborador y la cantidad de horas de trabajo diarias
+                    </p>
+                    <p id="costo"></p>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table id="tasks-table" class="table table-bordered">
+                <tr>
+                    <th>Identificacion</th>
+                    <th>Descripcion</th>
+                    <th>Id de Responsable</th>
+                    <th>Estado (Finalizada:Si/No)</th>
+                    <th>Dias de trabajo</th>
+                </tr>
+            </table>
+        </div>
+        <!--Modal alta coworker-->
+        <div id="coworker" class="modal">
+            <div class="modal-content">
+                <div class="modal-container">
+                    <span id="close_coworker" class="close">&times;</span>
+                    <div class="container">
+                        <form class="form" action="javascript:void(0);" id="formCoworker">
+                            <div class="form__item">
+                                <label for="surname">Apellido</label>
+                                <input type="text" id="surname" name="surname" class="form-control" />
+                            </div>
+                            <div class="form__item">
+                                <label for="firstname">Nombre</label>
+                                <input type="text" id="firstname" name="firstname" class="form-control" />
+                            </div>
+                            <div class="form__item">
+                                <label for="valuePerHour">Valor Hora</label>
+                                <input type="number" id="valuePerHour" name="valuePerHour" class="form-control" />
+                            </div>
+                            <div class="form__item">
+                                <label for="hoursPerDay">Horas Diarias</label>
+                                <input type="text" id="hoursPerDay" name="hoursPerDay" class="form-control" />
+                            </div>
+                            <div class="form__botones">
+                                <button type="submit" id="boton" class="btn btn-primary">
+                                    Enviar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modal generico-->
+        <div id="modalForm" class="modal">
+            <div class="modal-content">
+                <span id="close_generic" class="close">&times;</span>
+                <div class="container">
+                    <form class="showes" class="form" action="javascript:void(0);" id="theForm">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--Modal baja colaboradores-->
+        <div id="modalC" class="modal">
+            <div class="modal-content">
+                <span id="close_c" class="close">&times;</span>
+                <div class="container">
+                    <form class="showes" class="form" action="javascript:void(0);" id="theFormC">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--Modal dias trabajados-->
+        <div id="modalFormDias" class="modal">
+            <div class="modal-content">
+                <span id="close_days" class="close">&times;</span>
+                <div class="container">
+                    <form class="form" action="javascript:void(0);" id="daysForm">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="item3">
+        <p class="showes">Autor: Emma Ines Wahnish</p>
+        <p>
+            Soporte:
+            <a href="mailto:helpdesk@groovinads.com">helpdesk@groovinads.com</a>
+        </p>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+        crossorigin="anonymous"></script>
+
+    <script type="module" src="js/index.js"></script>
+</body>
+
+</html>
