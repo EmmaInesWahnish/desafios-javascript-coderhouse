@@ -63,7 +63,7 @@ $.getJSON(URL_JSON_COLABORADORES, function (response, status) {
 const $porcentaje = $('#percentComplete')
 
 $porcentaje.on('click', function () {
-    let resultado = Number(task.tasksPercentCompletion()) + " %";
+    let resultado = Math.round(Number(task.tasksPercentCompletion())) + " %";
     $('#avance').empty();
     $("#avance").append(resultado);
 })
@@ -109,8 +109,6 @@ $list_coworkers.on('click', function () {
         }
     }
 
-    $('#modalForm').show();
-
     const $selectCoworker = $("#theForm");
 
     $selectCoworker.append(`<div id="pleaseRemove">
@@ -146,8 +144,8 @@ $delete_coworker.on('click', function () {
 
     data = fillSelector(data, Coworker);
 
-    var $span = $("#close_generic");
-    var $modal = $("#modalForm");
+    var $span = $("#close_c");
+    var $modal = $("#modalC");
     $modal.show();
     $span.on('click', function (e) {
         $('#pleaseRemove').remove();
@@ -163,7 +161,7 @@ $delete_coworker.on('click', function () {
         }
     }
 
-    const $selectCoworker = $('#theForm');
+    const $selectCoworker = $('#theFormC');
 
     $selectCoworker.append(`<div id="pleaseRemove">
                         <h2>Baja de colaborador</h2>
