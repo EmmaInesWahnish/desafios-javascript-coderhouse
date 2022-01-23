@@ -1,0 +1,8 @@
+[
+    { "id": "W000", "surname": "Figueroa", "firstname": "Hernan", "valuePerHour": 20, "hoursPerDay": 4 },
+    { "id": "W001", "surname": "Arias", "firstname": "Eduardo", "valuePerHour": 18, "hoursPerDay": 5 },
+    { "id": "W002", "surname": "Perez", "firstname": "Valeria", "valuePerHour": 22, "hoursPerDay": 6 },
+    { "id": "W003", "surname": "Rodriguez", "firstname": "Fernando", "valuePerHour": 19, "hoursPerDay": 6 },
+    { "id": "W004", "surname": "Zucker", "firstname": "Patricia", "valuePerHour": 20, "hoursPerDay": 5 },
+    { "id": "W005", "surname": "Wella", "firstname": "German", "valuePerHour": 20, "hoursPerDay": 5 }
+]

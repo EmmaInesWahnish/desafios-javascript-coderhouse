@@ -1,0 +1,61 @@
+import { Task } from "./task.js";
+
+import { Coworker } from "../coworker.js";
+
+import { renderList } from "./render-list.js";
+
+import { renderListCoworker } from "./render-list-coworker.js";
+
+import { renderListBudget } from "./render-list-budget.js";
+
+import { fillSelector } from "./fill-selector.js";
+
+import { renderSelector } from "./render-selector.js";
+
+
+import { removeSelection } from "./remove-one-row-selection.js"
+
+//JSON estaticos donde estan los datos para la carga inicial
+const URL_JSON_TAREAS = '../db/tareas.json';
+const URL_JSON_COLABORADORES = '../db/colaboradores.json';
+const URL_FOR_POST = 'https://jsonplaceholder.typicode.com/posts';
+localStorage.clear();
+
+//variables globales
+let navbardrop02On = true;
+let selectedTasks = [];
+let costoDelPlan = 0;
+
+//datos iniciales se cargan en locaStorage
+
+//Inicio carga de tareas 
+const task = new Task();
+let tareas = [];
+$.getJSON(URL_JSON_TAREAS, function (response, status) {
+    if (status === "success") {
+        tareas = response;
+        let element = {};
+        for (element of tareas) {
+            task.createItem(element);
+        }
+        const tasks = task.findAllItems();
+        const tasksTable = "tasks-table";
+        const letra = "F";
+        renderList(tasksTable, tasks, letra, selectedTasks);
+    };
+});
+//fin carga de tareas
+
+//Inicio carga de colaboradores
+const coworker = new Coworker;
+let colaboradores = [];
+$.getJSON(URL_JSON_COLABORADORES, function (response, status) {
+    if (status === "success") {
+        colaboradores = response;
+        let elem = {};
+        for (elem of colaboradores) {
+            coworker.createItem(elem);
+        }
+    };
+});
+//fin carga de colaboradores
