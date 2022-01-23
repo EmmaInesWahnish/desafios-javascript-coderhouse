@@ -22,10 +22,9 @@ import { coworkerDelete } from "./coworker-delete.js";
 
 import { addCoworker } from "./coworker-add.js";
 
-//Se incluyen dos rutas como prueba de concepto
+//Se incluyen la ruta home como prueba de concepto
 const routes = [
     { path: '/', action: 'mostrarLanding' },
-    { path: '/percentage', action: 'calculoAvance'}
 ]
 
 const URL_FOR_POST = 'https://jsonplaceholder.typicode.com/posts';
@@ -57,10 +56,6 @@ const router = () => {
         case 'mostrarLanding':
             renderHome(task, coworker, selectedTasks)
             break;
-        //percentComplete se encarga de calcular el avance del plan    
-        case 'calculoAvance':
-            percentComplete(task, coworker)
-            break;
         default:
             console.error('Ruta inexistente')
             break;
@@ -75,6 +70,14 @@ $(window).on('load', function () {
 $(window).on('hashchange', function () {
     router()
 })
+
+//bloque para calcular avance del plan
+const $percentComplete = $('#percentComplete')
+
+$percentComplete.on('click', function () {
+    percentComplete(task, coworker);
+});
+//fin bloque para calcular avance del plan
 
 //bloque para calcular costo del plan
 const $costo = $('#calculateCost')

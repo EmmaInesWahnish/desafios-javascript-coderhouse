@@ -1,6 +1,7 @@
 //bloque para calcular el avance del plan
 export const calculateCost = (task, coworker) => {
     //bloque para calcular costo del plan
+    $('#plan_cost').empty();
     const $costo = $('#calculateCost')
     let costoDelPlan = 0;
     let tasks = task.findAllItems();
@@ -15,6 +16,5 @@ export const calculateCost = (task, coworker) => {
     let resultado = "U$S " + costoDelPlan;
     $('#plan_cost').empty();
     $('#plan_cost').append(resultado);
-    console.log(resultado);
     //fin bloque para calcular costo del plan
 }
