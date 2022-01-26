@@ -48,8 +48,6 @@ const router = () => {
 
     const route = findActionByPath(path, routes)
     
-    console.log(path);
-
     switch (route.action) {
         //renderHome realiza las acciones iniciales de cargar las tareas y los colaboradores de los archivos JSON
         //tambien renderiza la tabla de tareas
@@ -157,7 +155,7 @@ $('#deleteTask').on('click', function (e) {
                             </button>
                         </div>`)
 
-    $selectTask.on('submit', () => {
+    $selectTask.off('submit').on('submit', () => {
 
         var $idTask = $('#selector');
 
@@ -322,7 +320,7 @@ $('#modifySelected').on('click', function () {
                             </button>
                         </div>`)
 
-    $selectCoworker.on('submit', () => {
+    $selectCoworker.off('submit').on('submit', () => {
 
         let element = '';
 
@@ -353,8 +351,6 @@ $('#changeTaskStatus').on('click', function () {
     for (element of selectedTasks) {
 
         let theTask = "T0" + element.substring(1);
-
-        console.log(theTask);
 
         task.completeTask(theTask);
 
@@ -403,7 +399,7 @@ $('#modifyDays').on('click', function () {
                             </button>
                         </div>`)
 
-    $changeDays.on('submit', () => {
+    $changeDays.off('submit').on('submit', () => {
 
         let element = '';
 
@@ -412,8 +408,6 @@ $('#modifyDays').on('click', function () {
         if (dias < 0) {
             alert("La cantidad de dias debe ser un numero positivo")
         } else {
-
-            console.log(selectedTasks);
 
             for (element of selectedTasks) {
 
@@ -501,7 +495,7 @@ $list_budget.on('click', function () {
                         </button>
                     </div>`)
 
-    $selectBudget.on('submit', () => {
+    $selectBudget.off('submit').on('submit', () => {
         const myPost = JSON.stringify(sendTable);
         $.ajax({
             method: "POST",

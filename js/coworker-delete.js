@@ -46,7 +46,7 @@ export const coworkerDelete = (coworker, Coworker, task) => {
                                     </button>
                             </div>`);
 
-    $selectCoworker.on('submit', () => {
+    $selectCoworker.off('submit').on('submit', () => {
 
         const $idCoworker = $('#selector');
 

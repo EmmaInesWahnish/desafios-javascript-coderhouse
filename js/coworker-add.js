@@ -3,9 +3,9 @@ export const addCoworker = (coworker) => {
     const coworkers = coworker.findAllItems();
     let i = coworkers.length;
     let theId = coworkers[i - 1].id.substr(1);
+
     let resultado = +theId + 1;
     resultado = resultado.toString();
-    alert("El Id " + resultado);
     theId = resultado.trim();
     switch (theId.length) {
         case 1:
@@ -20,7 +20,7 @@ export const addCoworker = (coworker) => {
         default:
             alert("Id overflow***");
     }
-    let id = theId;
+
     var $span = $("#close_coworker");
     var $modal = $("#coworker");
     $modal.show();
@@ -33,8 +33,8 @@ export const addCoworker = (coworker) => {
         }
     }
 
-    $('#coworker').on('submit', function () {
-
+    $('#coworker').off('submit').on('submit', function () {
+        let id = theId;
         const apellido = $('#surname');
         const nombre = $('#firstname');
         const valorHora = $('#valuePerHour');
@@ -45,7 +45,9 @@ export const addCoworker = (coworker) => {
         const valuePerHour = valorHora[0].value;
         const hoursPerDay = horasDia[0].value;
 
-        const colaboradorNuevo = { id: id, surname: surname, firstname: firstname, valuePerHour: valuePerHour, hoursPerDay: hoursPerDay };
+        var colaboradorNuevo = { id: id, surname: surname, firstname: firstname, valuePerHour: valuePerHour, hoursPerDay: hoursPerDay };
+
+        console.log(colaboradorNuevo);
 
         coworker.createItem(colaboradorNuevo);
 
@@ -54,5 +56,5 @@ export const addCoworker = (coworker) => {
         $('#coworker').hide();
 
     });
- 
+
 }
