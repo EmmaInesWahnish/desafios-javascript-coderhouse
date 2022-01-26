@@ -1,6 +1,6 @@
-export function fillSelector(anyArray, AnyObject) {
+export function fillSelector(AnyObject) {
     //coloca en anyArray las opciones que se quieren renderizar en un select de un objeto determinado   
-    anyArray = [];
+    var anyArray = [];
     const anyObject = new AnyObject();
     const anyObjects = anyObject.findAllItems();
     anyObjects.forEach(element => {

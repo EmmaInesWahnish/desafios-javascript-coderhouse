@@ -15,12 +15,6 @@ export class Coworker {
     findOneByIdItem(itemId) {
         const item = this.lista.find(element => element.id === itemId)
 
-        if (!item) {
-            alert('No existe colaborador con id: ' + itemId);
-        } else {
-            alert("Operacion de colaborador " + itemId + " exitosa");
-        }
-
         return item;
     }
 

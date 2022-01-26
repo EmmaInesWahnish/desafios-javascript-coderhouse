@@ -120,7 +120,7 @@ $('#deleteTask').on('click', function (e) {
 
     let data = [];
 
-    data = fillSelector(data, Task);
+    data = fillSelector(Task);
 
     var $span = $("#close_generic");
     var $modal = $("#modalForm");
@@ -232,7 +232,7 @@ $('#newTask').on('click', function () {
 
         let data = [];
 
-        data = fillSelector(data, Coworker);
+        data = fillSelector(Coworker);
 
         var $inSelect = $("#selector");
 
@@ -285,7 +285,7 @@ $('#newTask').on('click', function () {
 $('#modifySelected').on('click', function () {
     let data = [];
 
-    data = fillSelector(data, Coworker);
+    data = fillSelector(Coworker);
 
     var $span = $("#close_generic");
     var $modal = $("#modalForm");

@@ -5,6 +5,7 @@ export const addCoworker = (coworker) => {
     let theId = coworkers[i - 1].id.substr(1);
     let resultado = +theId + 1;
     resultado = resultado.toString();
+    alert("El Id " + resultado);
     theId = resultado.trim();
     switch (theId.length) {
         case 1:
@@ -27,7 +28,7 @@ export const addCoworker = (coworker) => {
         $modal.hide();
     })
     window.onclick = function (event) {
-        if (event.target == modal) {
+        if (event.target == $modal) {
             $modal.hide();
         }
     }
@@ -47,6 +48,8 @@ export const addCoworker = (coworker) => {
         const colaboradorNuevo = { id: id, surname: surname, firstname: firstname, valuePerHour: valuePerHour, hoursPerDay: hoursPerDay };
 
         coworker.createItem(colaboradorNuevo);
+
+        $("#boton02").trigger("click");
 
         $('#coworker').hide();
 

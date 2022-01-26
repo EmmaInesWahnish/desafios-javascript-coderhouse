@@ -6,12 +6,13 @@ export const coworkerDelete = (coworker, Coworker, task) => {
 
     let data = [];
 
-    data = fillSelector(data, Coworker);
+    data = fillSelector(Coworker);
 
     var $span = $("#close_c");
     var $modal = $("#modalC");
     $modal.show();
     $span.on('click', function (e) {
+        $('#selector').remove();
         $('#pleaseRemove').remove();
         $("#submitButton").remove();
         $modal.hide();
@@ -19,6 +20,7 @@ export const coworkerDelete = (coworker, Coworker, task) => {
 
     window.onclick = function (event) {
         if (event.target == $modal) {
+            $('#selector').remove();
             $('#pleaseRemove').remove();
             $("#submitButton").remove();
             $modal.hide();
@@ -48,7 +50,10 @@ export const coworkerDelete = (coworker, Coworker, task) => {
 
         const $idCoworker = $('#selector');
 
-        const theId = $idCoworker[0].value.substr(0, 4);
+        try {
+            var theId = $idCoworker[0].value;
+        }
+        catch (e) { }
 
         const myTasks = task.findAllItems();
 
@@ -66,18 +71,30 @@ export const coworkerDelete = (coworker, Coworker, task) => {
 
             let theComment = "El colaborador esta asignado a una tarea. Podra darlo de baja despues de asignar otro colaborador a la misma "
 
-            $('#isAssigned').append(theComment);
+            $('#selector').remove();
+            
+            $('#pleaseRemove').remove();
+
+            $("#submitButton").remove();
+
+            $('#modalC').hide();
+
+            alert(theComment);
+
+            coworkerAssigned = false;
 
         } else {
             coworker.deleteItem(theId);
+
+            $('#selector').remove();
+
+            $('#pleaseRemove').remove();
+
+            $("#submitButton").remove();
+
+            $('#modalC').hide();
+
         }
-        $('#pleaseRemove').remove();
-
-        $("#submitButton").remove();
-
-        $span.trigger('click');
-
-        $('#modalForm').hide();
     })
 
 }
