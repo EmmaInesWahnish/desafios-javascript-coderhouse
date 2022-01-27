@@ -47,8 +47,6 @@ export const addCoworker = (coworker) => {
 
         var colaboradorNuevo = { id: id, surname: surname, firstname: firstname, valuePerHour: valuePerHour, hoursPerDay: hoursPerDay };
 
-        console.log(colaboradorNuevo);
-
         coworker.createItem(colaboradorNuevo);
 
         $("#boton02").trigger("click");
